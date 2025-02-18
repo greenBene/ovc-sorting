@@ -2,15 +2,21 @@
 
 #include <string>
 
+#include "Stats.h"
+
 struct Record {
     std::string key;
 };
 
 class InsertionSort {
+  private:
+    int rowComparisons = 0;
+    int columnComparisons = 0;
+
   public:
-    static void sort(Record* records, int length);
+    Stats sort(Record* records, int length, int keyLength);
 
   private:
-    static bool lessThan(const Record &left, const Record &right);
+    bool lessThan(const Record &left, const Record &right, int keyLength);
 
 };
