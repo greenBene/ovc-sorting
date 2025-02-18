@@ -13,6 +13,8 @@ enable_testing()
 add_executable(
         ${PROJECT_NAME}Test
         InsertionSortTest.cpp
+        InsertionSortOVCTest.cpp
+        OVCTest.cpp
 )
 
 target_link_libraries(
