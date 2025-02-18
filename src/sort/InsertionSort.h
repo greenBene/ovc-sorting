@@ -1,15 +1,10 @@
 #pragma once
 
-#include <string>
 
 #include "Stats.h"
-
-struct Record {
-    std::string key;
-};
+#include "Record.h"
 
 class InsertionSort {
-  private:
     Stats stats;
 
   public:
