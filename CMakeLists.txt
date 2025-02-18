@@ -3,7 +3,7 @@ project(OVCSorting)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(OVCSorting src/main.cpp)
+add_executable(${PROJECT_NAME} src/Main.cpp)
 
 # Setup for Google Test
 include(FetchContent)
@@ -19,13 +19,18 @@ enable_testing()
 
 add_executable(
         main_test
-        test/main_test.cpp
+        test/MainTest.cpp
 )
 
 target_link_libraries(
         main_test
         GTest::gtest_main
+        sort
 )
 
 include(GoogleTest)
 gtest_discover_tests(main_test)
+
+
+add_subdirectory(src/sort)
+target_link_libraries(${PROJECT_NAME} sort)
