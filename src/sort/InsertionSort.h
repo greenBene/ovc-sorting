@@ -10,8 +10,7 @@ struct Record {
 
 class InsertionSort {
   private:
-    int rowComparisons = 0;
-    int columnComparisons = 0;
+    Stats stats;
 
   public:
     Stats sort(Record* records, int length, int keyLength);

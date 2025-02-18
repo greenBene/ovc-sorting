@@ -4,8 +4,7 @@
 
 Stats InsertionSort::sort(Record records[], const int length, const int keyLength) {
 
-  rowComparisons = 0;
-  columnComparisons = 0;
+  stats = getNewStats();
 
   for (int j = 1; j < length; j++) {
     int i = j - 1;
@@ -17,14 +16,14 @@ Stats InsertionSort::sort(Record records[], const int length, const int keyLengt
     records[i + 1] = r;
   }
 
-  return {rowComparisons, columnComparisons};
+  return stats;
 }
 
 bool InsertionSort::lessThan(const Record &left, const Record &right, const int keyLength) {
-  rowComparisons += 1;
+  stats.rowComparisons += 1;
 
   for (int i = 0; i < keyLength; i++) {
-    columnComparisons += 1;
+    stats.columnComparisons += 1;
     if (left.key[i] != right.key[i]) {
       return left.key[i] < right.key[i];
     }
