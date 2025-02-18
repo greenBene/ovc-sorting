@@ -1,6 +1,5 @@
 add_library(
         sort
-        Sort.cpp
         InsertionSort.cpp
 )
 
