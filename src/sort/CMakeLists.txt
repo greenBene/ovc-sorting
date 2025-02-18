@@ -1,6 +1,7 @@
 add_library(
         sort
         Sort.cpp
+        InsertionSort.cpp
 )
 
 target_include_directories(sort
