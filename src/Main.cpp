@@ -5,15 +5,15 @@
 
 int main(int argc, char *argv[]) {
 
+  Record records[4] = {{"bbb"}, {"aba"}, {"baa"}, {"aaa"}};
+
   auto insertionSort = InsertionSort();
-  const auto records = new Record[2];
-  records[0].id = 1;
-  records[0].key = "Hello";
-  records[1].id = 2;
-  records[1].key = "World";
+  insertionSort.sort(records, 4);
 
-  insertionSort.sort(records, 5);
+  for (int i = 0; i < 4; i++) {
+    std::cout << records[i].key << std::endl;
+  }
 
-  std::cout << records[0].id << " " << records[0].key << std::endl;
+  return 0;
 }
 
