@@ -8,6 +8,7 @@ class InsertionSort {
 
   public:
     Stats sort(Record* records, int length, int keyLength);
+    Stats sort(Record* records, int length, int keyLength, const Stats &stats);
 
   private:
     bool lessThan(const Record &left, const Record &right, int keyLength);

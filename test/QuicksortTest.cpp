@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include <Quicksort.h>
-#include "RecordHelper.h"
+#include <Record.h>
 
 
 TEST(QuicksortTest, SanityCheck) {
@@ -9,20 +9,23 @@ TEST(QuicksortTest, SanityCheck) {
     std::string keys[] = {"bbb", "aab", "abb", "aaa"};
     Record * records = generateRecords(keys, 4);
 
-    quicksort.sort(records, 4, 3, 1);
+    auto [rowComparisons, columnComparisons] = quicksort.sort(records, 4, 3, 1);
 
     EXPECT_EQ("aaa", records[0].key);
     EXPECT_EQ("aab", records[1].key);
     EXPECT_EQ("abb", records[2].key);
     EXPECT_EQ("bbb", records[3].key);
+
+    EXPECT_EQ(10, rowComparisons);
+    EXPECT_EQ(19, columnComparisons);
 }
 
-TEST(QuicksortTest, ThesisExample) {
+TEST(QuicksortTest, ThesisExampleWithoutInsertionSort) {
     Quicksort quicksort;
 
     std::string keys[] = {"591", "333", "764", "670", "610", "934", "496", "564", "408"};
     Record *records = generateRecords(keys, 9);
-    quicksort.sort(records, 9, 3, 1);
+    auto [rowComparisons, columnComparisons] = quicksort.sort(records, 9, 3, 1);
 
     EXPECT_EQ("333", records[0].key);
     EXPECT_EQ("408", records[1].key);
@@ -33,35 +36,70 @@ TEST(QuicksortTest, ThesisExample) {
     EXPECT_EQ("670", records[6].key);
     EXPECT_EQ("764", records[7].key);
     EXPECT_EQ("934", records[8].key);
+
+    EXPECT_EQ(35, rowComparisons);
+    EXPECT_EQ(42, columnComparisons);
+}
+
+TEST(QuicksortTest, ThesisExampleWithInsertionSort) {
+    Quicksort quicksort;
+
+    std::string keys[] = {"591", "333", "764", "670", "610", "934", "496", "564", "408"};
+    Record *records = generateRecords(keys, 9);
+    auto [rowComparisons, columnComparisons] = quicksort.sort(records, 9, 3, 4);
+
+    EXPECT_EQ("333", records[0].key);
+    EXPECT_EQ("408", records[1].key);
+    EXPECT_EQ("496", records[2].key);
+    EXPECT_EQ("564", records[3].key);
+    EXPECT_EQ("591", records[4].key);
+    EXPECT_EQ("610", records[5].key);
+    EXPECT_EQ("670", records[6].key);
+    EXPECT_EQ("764", records[7].key);
+    EXPECT_EQ("934", records[8].key);
+
+    EXPECT_EQ(28, rowComparisons);
+    EXPECT_EQ(33, columnComparisons);
 }
 
 
-// TEST(InsertionSortTest, WorstCase) {
-//     InsertionSort insertionSort;
-//
-//     Record records[] = {{"aad"}, {"aac"}, {"aab"}, {"aaa"}};
-//     Stats stats = insertionSort.sort(records, 4, 3);
-//
-//     EXPECT_EQ("aaa", records[0].key);
-//     EXPECT_EQ("aab", records[1].key);
-//     EXPECT_EQ("aac", records[2].key);
-//     EXPECT_EQ("aad", records[3].key);
-//
-//     EXPECT_EQ(6, stats.rowComparisons);
-//     EXPECT_EQ(18, stats.columnComparisons);
-// }
-//
-// TEST(InsertionSortTest, BestCase) {
-//     InsertionSort insertionSort;
-//
-//     Record records[] = {{"aaa"}, {"bbb"}, {"ccc"}, {"ddd"}};
-//     Stats stats = insertionSort.sort(records, 4, 3);
-//
-//     EXPECT_EQ("aaa", records[0].key);
-//     EXPECT_EQ("bbb", records[1].key);
-//     EXPECT_EQ("ccc", records[2].key);
-//     EXPECT_EQ("ddd", records[3].key);
-//
-//     EXPECT_EQ(3, stats.rowComparisons);
-//     EXPECT_EQ(3, stats.columnComparisons);
-// }
+TEST(QuicksortTest, WorstCase) {
+    Quicksort quicksort;
+
+    std::string keys[] = {"111", "112", "113", "114", "115", "116", "117", "118"};
+    Record * records = generateRecords(keys, 8);
+    Stats stats = quicksort.sort(records, 8, 3, 1);
+
+    EXPECT_EQ("111", records[0].key);
+    EXPECT_EQ("112", records[1].key);
+    EXPECT_EQ("113", records[2].key);
+    EXPECT_EQ("114", records[3].key);
+    EXPECT_EQ("115", records[4].key);
+    EXPECT_EQ("116", records[5].key);
+    EXPECT_EQ("117", records[6].key);
+    EXPECT_EQ("118", records[7].key);
+
+    EXPECT_EQ(41, stats.rowComparisons);
+    EXPECT_EQ(123, stats.columnComparisons);
+}
+
+TEST(QuicksortTest, BestCase) {
+    Quicksort quicksort;
+
+    std::string keys[] = {"555", "222", "111", "333", "444", "888", "666", "777", "999"};
+    Record * records = generateRecords(keys, 9);
+    Stats stats = quicksort.sort(records, 9, 3, 1);
+
+    EXPECT_EQ("111", records[0].key);
+    EXPECT_EQ("222", records[1].key);
+    EXPECT_EQ("333", records[2].key);
+    EXPECT_EQ("444", records[3].key);
+    EXPECT_EQ("555", records[4].key);
+    EXPECT_EQ("666", records[5].key);
+    EXPECT_EQ("777", records[6].key);
+    EXPECT_EQ("888", records[7].key);
+    EXPECT_EQ("999", records[8].key);
+
+    EXPECT_EQ(29, stats.rowComparisons);
+    EXPECT_EQ(29, stats.columnComparisons);
+}

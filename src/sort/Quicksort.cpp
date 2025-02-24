@@ -1,4 +1,5 @@
 #include "Quicksort.h"
+#include "InsertionSort.h"
 
 #include <iostream>
 #include <ostream>
@@ -9,8 +10,6 @@ struct Limits {
 };
 
 Stats Quicksort::sort(Record *records, const int length, const int keyLength, const int M) {
-
-    std::cout << "Quicksort::sort" << std::endl;
     stats = getNewStats();
 
     if (length > M) {
@@ -21,11 +20,6 @@ Stats Quicksort::sort(Record *records, const int length, const int keyLength, co
             Record r = records[left];
             int i = left + 1;
             int j = right;
-
-            for (int n = 0; n < length; n++) {
-                std::cout << records[n].key << ", ";
-            }
-            std::cout << "left: " <<  left << ", right: " << right << std::endl;
 
             while(i <= j) {
                 while (i < length && lessThan(records[i], r, keyLength)) {
@@ -62,6 +56,11 @@ Stats Quicksort::sort(Record *records, const int length, const int keyLength, co
                 break;
             }
         }
+    }
+
+    if (M > 1) {
+        InsertionSort insertion_sort;
+        stats = insertion_sort.sort(records, length, keyLength, stats);
     }
 
     return stats;

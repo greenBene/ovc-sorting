@@ -2,9 +2,15 @@
 #include "Stats.h"
 
 
-Stats InsertionSort::sort(Record records[], const int length, const int keyLength) {
 
-  stats = getNewStats();
+Stats InsertionSort::sort(Record records[], const int length, const int keyLength) {
+  Stats stats = getNewStats();
+  return sort(records, length, keyLength, stats);
+}
+
+Stats InsertionSort::sort(Record records[], const int length, const int keyLength, const Stats &s) {
+
+  stats = s;
 
   for (int j = 1; j < length; j++) {
     int i = j - 1;

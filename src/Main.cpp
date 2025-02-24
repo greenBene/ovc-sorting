@@ -4,12 +4,13 @@
 #include <InsertionSortOVC.h>
 
 #include <OVC.h>
+#include <Quicksort.h>
 
 int main(int argc, char *argv[]) {
 
-  InsertionSortOVC insertionSortOvc;
+  Quicksort quicksort;
 
-  Record records[] = {{"cad"}, {"aac"}, {"aab"}, {"aaa"}};
+  Record records[] = genR
   Stats stats = insertionSortOvc.sort(records, 4, 3);
 
   for (int i = 0; i < 4; i++) {
