@@ -18,16 +18,18 @@ Stats Quicksort::sort(Record *records, const int length, const int keyLength, co
         int right = length - 1;
         while (true) {
             Record r = records[left];
-            int i = left + 1;
-            int j = right;
+            int i = left;
+            int j = right + 1;
 
-            while(i <= j) {
-                while (i < length && lessThan(records[i], r, keyLength)) {
+            while(i < j) {
+                do {
                     i += 1;
-                }
-                while (j > 0 && lessThan(r, records[j], keyLength)) {
+                } while (i < length && lessThan(records[i], r, keyLength));
+
+                do {
                     j -= 1;
-                }
+                } while (j > 0 && lessThan(r, records[j], keyLength));
+
                 if (i < j) {
                     swap(records, length, i, j);
                 }
@@ -85,6 +87,6 @@ bool Quicksort::lessThan(const Record &left, const Record &right, int keyLength)
             return left.key[i] < right.key[i];
         }
     }
-    return left.key < right.key;
+    return false;
 }
 

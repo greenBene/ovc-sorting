@@ -37,8 +37,8 @@ TEST(QuicksortTest, ThesisExampleWithoutInsertionSort) {
     EXPECT_EQ("764", records[7].key);
     EXPECT_EQ("934", records[8].key);
 
-    EXPECT_EQ(35, rowComparisons);
-    EXPECT_EQ(42, columnComparisons);
+    EXPECT_EQ(29, rowComparisons);
+    EXPECT_EQ(35, columnComparisons);
 }
 
 TEST(QuicksortTest, ThesisExampleWithInsertionSort) {
@@ -58,8 +58,8 @@ TEST(QuicksortTest, ThesisExampleWithInsertionSort) {
     EXPECT_EQ("764", records[7].key);
     EXPECT_EQ("934", records[8].key);
 
-    EXPECT_EQ(28, rowComparisons);
-    EXPECT_EQ(33, columnComparisons);
+    EXPECT_EQ(22, rowComparisons);
+    EXPECT_EQ(26, columnComparisons);
 }
 
 
@@ -102,4 +102,17 @@ TEST(QuicksortTest, BestCase) {
 
     EXPECT_EQ(29, stats.rowComparisons);
     EXPECT_EQ(29, stats.columnComparisons);
+}
+
+TEST(QuicksortTest, Duplicate) {
+    Quicksort quicksort;
+
+    Record records[] = {{"333"}, {"333"}, {"222"}, {"111"}, {"444"}};
+    quicksort.sort(records, 5, 3, 1);
+
+    EXPECT_EQ("111", records[0].key);
+    EXPECT_EQ("222", records[1].key);
+    EXPECT_EQ("333", records[2].key);
+    EXPECT_EQ("333", records[3].key);
+    EXPECT_EQ("444", records[4].key);
 }
