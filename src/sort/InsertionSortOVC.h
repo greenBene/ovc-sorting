@@ -7,6 +7,7 @@ class InsertionSortOVC {
     Stats stats;
 
   public:
+    Stats sort(Record* records, int left, int right, int keyLength, Stats s);
     Stats sort(Record* records, int length, int keyLength);
 
   private:

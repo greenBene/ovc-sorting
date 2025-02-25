@@ -14,10 +14,10 @@ int main(int argc, char *argv[]) {
 
   // std::string keys[] = {"ccc", "bbb", "aaa", "ddd", "eee"};
 
-  int N = 100000;
+  int N = 10000;
   int k = 5;
   Record * records = generateRecords(N, k);
-  Stats stats = sort.sort(records, N, k, 1);
+  Stats stats = sort.sort(records, N, k, 10);
 
   std::cout << "Quicksort: " << std::endl;
   for (int i = 0; i < N; i++) {
@@ -28,9 +28,11 @@ int main(int argc, char *argv[]) {
 
   bool keysOrdered = true;
   for (int i = 1; i < N ; i++) {
-    if (keysOrdered && records[i-1].key > records[i].key) {
-      keysOrdered = false;
-      std::cout << "Issue: " <<  records[i-1].key << ", " << records[i].key << std::endl;
+    if (records[i-1].key > records[i].key) {
+      std::cout << "Issue: " << i << " - " <<  records[i-1].key << ", " << records[i].key << std::endl;
+      if (keysOrdered) {
+        keysOrdered = false;
+      }
     }
   }
 

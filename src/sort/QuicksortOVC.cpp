@@ -3,6 +3,7 @@
 
 #include <stack>
 
+#include "InsertionSortOVC.h"
 #include "OVC.h"
 
 
@@ -12,10 +13,10 @@ struct Limits {
 
 Stats QuicksortOVC::sort(Record* records, const int length, const int keyLength, const int M) {
     stats = getNewStats();
+    InsertionSortOVC insertionSort;
 
     if (length < M) {
-        InsertionSort insertionSort;
-        return insertionSort.sort(records, length, keyLength, stats);
+        return insertionSort.sort(records, 0, length, keyLength, stats);
     }
 
     std::stack<Limits> stack;
@@ -58,16 +59,22 @@ Stats QuicksortOVC::sort(Record* records, const int length, const int keyLength,
             stack.push(Limits(left, left + l));
             left = left + l + 1;
         } else if (length_right > M) {
+            stats = insertionSort.sort(records, left, left + l, keyLength, stats);
             left = left + l + 1;
         } else if (length_left > M) {
+            stats = insertionSort.sort(records, left + l + 1, right, keyLength, stats);
             right = left + l;
-        } else if (!stack.empty()) {
-            auto [t_left, t_right] = stack.top();
-            stack.pop();
-            left = t_left;
-            right = t_right;
         } else {
-            break;
+            stats = insertionSort.sort(records, left, left + l, keyLength, stats);
+            stats = insertionSort.sort(records, left + l + 1, right, keyLength, stats);
+            if (!stack.empty()) {
+                auto [t_left, t_right] = stack.top();
+                stack.pop();
+                left = t_left;
+                right = t_right;
+            } else {
+                break;
+            }
         }
     }
 

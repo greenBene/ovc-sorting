@@ -6,13 +6,19 @@
 #include "OVC.h"
 
 
-Stats InsertionSortOVC::sort(Record* records, int length, int keyLength) {
-  stats = getNewStats();
+Stats InsertionSortOVC::sort(Record* records, const int length, const int keyLength) {
+  return sort(records, 0, length, keyLength, getNewStats());
+}
 
-  for (int j = length - 2; j >= 0; j--) {
+
+Stats InsertionSortOVC::sort(Record* records, const int left, const int right, const int keyLength, Stats s) {
+  stats.columnComparisons = s.columnComparisons;
+  stats.rowComparisons = s.rowComparisons;
+
+  for (int j = right - 2; j >= left; j--) {
     int i = j + 1;
     Record r = records[j];
-    while (i < length && lessThan(records[i], r, keyLength)) {
+    while (i < right && lessThan(records[i], r, keyLength)) {
       records[i-1] = records[i];
       i += 1;
     }
