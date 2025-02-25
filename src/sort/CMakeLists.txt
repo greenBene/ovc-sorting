@@ -3,6 +3,7 @@ add_library(
         InsertionSort.cpp
         InsertionSortOVC.cpp
         Quicksort.cpp
+        QuicksortOVC.cpp
 )
 
 target_include_directories(sort

@@ -10,9 +10,9 @@ TEST(OVCTest, GenOVC) {
 }
 
 TEST(OVCTest, Offset) {
-    const Record rec = {"aa", genOVC(2, 5)};
+    const uint32_t ovc = genOVC(2, 5);
 
-    EXPECT_EQ(2, offset(rec));
+    EXPECT_EQ(2, offset(ovc));
 }
 
 TEST(OVCTest, Comparission) {

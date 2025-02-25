@@ -1,7 +1,6 @@
 #include "Quicksort.h"
 #include "InsertionSort.h"
 
-#include <iostream>
 #include <ostream>
 #include <stack>
 
