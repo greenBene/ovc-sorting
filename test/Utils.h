@@ -4,12 +4,14 @@
 #include <Record.h>
 
 static bool isSorted(const Record * records, const int N) {
+    bool isSorted = true;
     for (int i = 1; i < N; i++) {
         if (records[i-1].key > records[i].key) {
-            return false;
+            std::cout << "Issue: R" << i-1 << " - " << records[i-1].key << " R-" << i << " - " << records[i].key << std::endl;
+            isSorted = false;
         }
     }
-    return true;
+    return isSorted;
 }
 
 static bool validOVC(const Record * records, const int N, const int keyLength) {
