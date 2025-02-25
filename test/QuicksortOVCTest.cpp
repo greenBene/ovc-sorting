@@ -135,3 +135,15 @@ TEST(QuicksortOVCTest, Many) {
     EXPECT_TRUE(isSorted(records, N));
     EXPECT_TRUE(validOVC(records, N, k));
 }
+
+TEST(QuicksortOVCTest, ManyWithM) {
+    QuicksortOVC quicksort;
+    constexpr int N = 10000;
+    constexpr int k = 5;
+    Record *records = generateRecords(N, k, 1337);
+
+    quicksort.sort(records, N, k, 30);
+
+    EXPECT_TRUE(isSorted(records, N));
+    EXPECT_TRUE(validOVC(records, N, k));
+}
