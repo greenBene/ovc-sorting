@@ -10,7 +10,7 @@ struct Limits {
     int left, right;
 };
 
-Stats QuicksortOVC::sort(Record* records, int length, int keyLength, int M) {
+Stats QuicksortOVC::sort(Record* records, const int length, const int keyLength, const int M) {
     stats = getNewStats();
 
     if (length < M) {
@@ -20,67 +20,47 @@ Stats QuicksortOVC::sort(Record* records, int length, int keyLength, int M) {
 
     std::stack<Limits> stack;
     int left = 0;
-    int right = length - 1;
+    int right = length;
     while (true) {
-        Record &r = records[left];
-        int i = left;
-        int j = right + 1;
+        Record &pivot = records[left];
+        Record temp[right - left];
+        int l = 0, r = right - left - 1;
         uint32_t pivotOvcCandidate = 0;
-
-        while (i < j) {
-            bool less = true;
-
-            while (i < length - 1 && less) {
-                i += 1;
-                auto [t_less, ovc] = lessThan(records[i], r, keyLength);
-                less = t_less;
-                if (less) {
-                    records[i].reverseOvc = ovc;
-                    if (ovc > pivotOvcCandidate) {
-                        pivotOvcCandidate = ovc;
-                    }
+        for (int i = left + 1; i < right; i++) {
+            if (auto [less, ovc] = lessThan(records[i], pivot, keyLength); less) {
+                records[i].reverseOvc = ovc;
+                temp[l++] = records[i];
+                if (ovc > pivotOvcCandidate) {
+                    pivotOvcCandidate = ovc;
                 }
-                // else {
-                //     records[i].ovc = ovc;// move to swap?
-                // }
-            }
-            less = true;
-            while (j > 0 && less) {
-                j -= 1;
-                auto [t_less, ovc] = lessThan(r, records[j], keyLength);
-                less = t_less;
-                if (less) {
-                    records[j].ovc = ovc;
-                } else {
-                    records[j].reverseOvc = ovc;
-                    if (ovc > pivotOvcCandidate) {
-                        pivotOvcCandidate = ovc;
-                    }
-                }
-            }
-            if (i < j) {
-                swap(records, length, i, j);
+            } else {
+                records[i].ovc = ovc;
+                temp[r--] = records[i];
             }
         }
         if (pivotOvcCandidate != 0) {
-            r.ovc = pivotOvcCandidate;
+            pivot.ovc = pivotOvcCandidate;
+        }
+        temp[l] = pivot;
+
+        for (int j = 0; j < right - left; j++) {
+            records[left + j] = temp[j];
         }
 
-        swap(records, length, left, j);
 
-        int length_left = j - left;
-        int length_right = right - j;
+        const int length_left = l;
+        const int length_right = right - left - l - 1;
 
         if (length_right >= length_left && length_left > M) {
-            stack.push(Limits(j + 1, right));
-            right = j - 1;
+            stack.push(Limits(left + l + 1, right));
+            right = left + l;
         } else if (length_left > length_right && length_right > M) {
-            stack.push(Limits(left, j - 1));
-            left = j + 1;
+            stack.push(Limits(left, left + l));
+            left = left + l + 1;
         } else if (length_right > M) {
-            left = j + 1;
+            left = left + l + 1;
         } else if (length_left > M) {
-            right = j - 1;
+            right = left + l;
         } else if (!stack.empty()) {
             auto [t_left, t_right] = stack.top();
             stack.pop();
@@ -96,6 +76,7 @@ Stats QuicksortOVC::sort(Record* records, int length, int keyLength, int M) {
 
 
 QuicksortOVCLessThanResult QuicksortOVC::lessThan(const Record &left, const Record &right, int keyLength) {
+    stats.rowComparisons += 1;
     if (left.ovc > right.ovc) {
         return {true, right.ovc};
     }
@@ -116,7 +97,9 @@ QuicksortOVCLessThanResult QuicksortOVC::lessThan(const Record &left, const Reco
     }
     while (i < keyLength && left.key[i] == right.key[i]) {
         i += 1;
+        stats.columnComparisons += 1;
     }
+    stats.columnComparisons += 1;
     if (i >= keyLength) {
         return {true, genOVC(i, 0)};
     }
