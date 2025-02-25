@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <InsertionSortOVC.h>
 
+#include "Utils.h"
 
 
 TEST(InsertionSortOVCTest, SanityCheck) {
@@ -13,6 +14,8 @@ TEST(InsertionSortOVCTest, SanityCheck) {
     EXPECT_EQ("aab", records[1].key);
     EXPECT_EQ("abb", records[2].key);
     EXPECT_EQ("bbb", records[3].key);
+
+    EXPECT_TRUE(validOVC(records, 4, 3));
 }
 
 TEST(InsertionSortOVCTest, WorstCase) {
@@ -28,6 +31,7 @@ TEST(InsertionSortOVCTest, WorstCase) {
 
     EXPECT_EQ(6, stats.rowComparisons);
     EXPECT_EQ(9, stats.columnComparisons);
+    EXPECT_TRUE(validOVC(records, 4, 3));
 }
 
 TEST(InsertionSortOVCTest, BestCase) {
@@ -43,4 +47,17 @@ TEST(InsertionSortOVCTest, BestCase) {
 
     EXPECT_EQ(3, stats.rowComparisons);
     EXPECT_EQ(3, stats.columnComparisons);
+    EXPECT_TRUE(validOVC(records, 4, 3));
+}
+
+TEST(InsertionSortOVCTest, Many) {
+    InsertionSortOVC quicksort;
+    constexpr int N = 1000;
+    constexpr int k = 5;
+    Record *records = generateRecords(N, k, 1337);
+
+    quicksort.sort(records, N, k);
+
+    EXPECT_TRUE(isSorted(records, N));
+    EXPECT_TRUE(validOVC(records, N, k));
 }

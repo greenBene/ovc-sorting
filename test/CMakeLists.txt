@@ -15,7 +15,9 @@ add_executable(
         InsertionSortTest.cpp
         InsertionSortOVCTest.cpp
         QuicksortTest.cpp
+        QuicksortOVCTest.cpp
         OVCTest.cpp
+        Utils.h
 )
 
 target_link_libraries(

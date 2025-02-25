@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
 
   int N = 10000;
   int k = 5;
-  Record * records = generateRecords(N, k);
+  Record * records = generateRecords(N, k, 1337);
   Stats stats = sort.sort(records, N, k, 10);
 
   std::cout << "Quicksort: " << std::endl;

@@ -34,7 +34,8 @@ static Record* generateRecords() {
     return generateRecords(keys, 99);
 }
 
-static Record* generateRecords(unsigned int n, unsigned int keyLength) {
+static Record* generateRecords(unsigned int n, unsigned int keyLength, unsigned int seed) {
+    srand(seed);
     auto * records = new Record[n];
     for (int i = 0; i < n; i++) {
         records[i].key = std::format("{:0{}}", rand() % static_cast<int>(pow(10, keyLength)), keyLength);
