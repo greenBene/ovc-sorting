@@ -1,10 +1,9 @@
 #pragma once
 
 #include <cstdint>
-#include "Record.h"
 
 
-static int16_t offset(const uint32_t ovc) {
+static uint32_t offset(const uint32_t ovc) {
     if ((ovc >> 30) == 0)
         return -1;
     return (ovc >> 16) & 0x3FFF;

@@ -9,24 +9,25 @@
 
 int main(int argc, char *argv[]) {
 
-  InsertionSortOVC sort;
+  QuicksortOVC sort;
 
 
   // std::string keys[] = {"ccc", "bbb", "aaa", "ddd", "eee"};
 
-  int length = 1000;
-  Record * records = generateRecords(length);
-  Stats stats = sort.sort(records, length, 3);
+  int N = 100000;
+  int k = 5;
+  Record * records = generateRecords(N, k);
+  Stats stats = sort.sort(records, N, k, 1);
 
   std::cout << "Quicksort: " << std::endl;
-  for (int i = 0; i < length; i++) {
+  for (int i = 0; i < N; i++) {
     std::cout << records[i].key << ", offset: " << offset(records[i].ovc) << ", value: " << static_cast<char>(value(records[i].ovc))<< std::endl;
   }
 
   std::cout << std::endl;
 
   bool keysOrdered = true;
-  for (int i = 1; i < length ; i++) {
+  for (int i = 1; i < N ; i++) {
     if (keysOrdered && records[i-1].key > records[i].key) {
       keysOrdered = false;
       std::cout << "Issue: " <<  records[i-1].key << ", " << records[i].key << std::endl;

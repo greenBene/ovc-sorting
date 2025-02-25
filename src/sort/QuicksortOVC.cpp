@@ -95,6 +95,11 @@ QuicksortOVCLessThanResult QuicksortOVC::lessThan(const Record &left, const Reco
     if (offset(left.reverseOvc) > i) {
         i = offset(left.reverseOvc);
     }
+
+    if (i >= keyLength) {
+        return {false, genOVC(keyLength, 0)};
+    }
+
     while (i < keyLength && left.key[i] == right.key[i]) {
         i += 1;
         stats.columnComparisons += 1;
