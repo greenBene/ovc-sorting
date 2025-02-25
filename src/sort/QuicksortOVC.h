@@ -18,6 +18,4 @@ class QuicksortOVC {
 
   private:
     QuicksortOVCLessThanResult lessThan(const Record &left, const Record &right, int keyLength);
-    static bool swap(Record* records, int length, int a, int b);
-
 };

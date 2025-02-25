@@ -121,14 +121,3 @@ QuicksortOVCLessThanResult QuicksortOVC::lessThan(const Record &left, const Reco
         return {false, genOVC(i, left.key[i])};
     }
 }
-
-
-bool QuicksortOVC::swap(Record* records, const int length, const int a, const int b) {
-    if (a < 0 || a >= length || b < 0 || b >= length ) {
-        return false;
-    }
-    const Record r = records[b];
-    records[b] = records[a];
-    records[a] = r;
-    return true;
-}
