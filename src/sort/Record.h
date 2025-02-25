@@ -1,5 +1,7 @@
 #pragma once
 #include <string>
+#include <format>
+#include <cstdlib>
 
 struct Record {
     std::string key; // String key, fixed length, only ASCII (for now)
@@ -29,4 +31,13 @@ static Record* generateRecords() {
                           "799", "985", "343", "357", "585", "286", "309", "885", "166",
                           "295", "764", "708", "325", "983", "970", "233", "721", "111"};
     return generateRecords(keys, 99);
+}
+
+static Record* generateRecords(unsigned int n) {
+    auto * records = new Record[n];
+    for (int i = 0; i < n; i++) {
+        records[i].key = std::format("{:0{}}", rand() % 1000, 3);
+    }
+
+    return records;
 }

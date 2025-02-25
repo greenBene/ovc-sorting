@@ -33,11 +33,17 @@ bool InsertionSortOVC::lessThan(Record &left, Record &right, const int keyLength
 
   uint16_t i = offset(left.ovc) + 1;
 
+
+  if (i >= keyLength) {
+    left.ovc = genOVC(keyLength, 0);
+    return false;
+  }
+
+  stats.columnComparisons += 1;
   while (i < keyLength && left.key[i] == right.key[i]) {
     stats.columnComparisons += 1;
     i = i + 1;
   }
-  stats.columnComparisons += 1;
 
   if (left.key[i] < right.key[i]) {
     right.ovc = genOVC(i, right.key[i]);
