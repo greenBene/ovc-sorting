@@ -22,9 +22,10 @@ Stats QuicksortOVC::sort(Record* records, const int length, const int keyLength,
     std::stack<Limits> stack;
     int left = 0;
     int right = length;
+    Record temp[length];
+
     while (true) {
         Record &pivot = records[left];
-        auto * temp = new Record[right - left];
         int l = 0, r = right - left - 1;
         uint32_t pivotOvcCandidate = 0;
         for (int i = left + 1; i < right; i++) {
@@ -47,7 +48,6 @@ Stats QuicksortOVC::sort(Record* records, const int length, const int keyLength,
         for (int j = 0; j < right - left; j++) {
             records[left + j] = temp[j];
         }
-        delete [] temp;
 
 
         const int length_left = l;
@@ -81,7 +81,6 @@ Stats QuicksortOVC::sort(Record* records, const int length, const int keyLength,
 
     return stats;
 }
-
 
 QuicksortOVCLessThanResult QuicksortOVC::lessThan(const Record &left, const Record &right, int keyLength) {
     stats.rowComparisons += 1;

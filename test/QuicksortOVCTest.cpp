@@ -126,7 +126,7 @@ TEST(QuicksortOVCTest, Duplicate) {
 
 TEST(QuicksortOVCTest, Many) {
     QuicksortOVC quicksort;
-    constexpr int N = 10000;
+    constexpr int N = 50000;
     constexpr int k = 5;
     Record *records = generateRecords(N, k, 1337);
 
@@ -138,7 +138,7 @@ TEST(QuicksortOVCTest, Many) {
 
 TEST(QuicksortOVCTest, ManyWithM) {
     QuicksortOVC quicksort;
-    constexpr int N = 10000;
+    constexpr int N = 50000;
     constexpr int k = 5;
     Record *records = generateRecords(N, k, 1337);
 

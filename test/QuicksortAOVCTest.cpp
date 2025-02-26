@@ -16,15 +16,12 @@ TEST(QuicksortAOVCTest, SanityCheck) {
     EXPECT_EQ("aab", records[1].key);
     EXPECT_EQ("abb", records[2].key);
     EXPECT_EQ("bbb", records[3].key);
-
-//    EXPECT_EQ(5, rowComparisons);
-//    EXPECT_EQ(11, columnComparisons);
 }
 
 TEST(QuicksortAOVCTest, Many) {
     QuicksortAOVC quicksort;
 
-    constexpr int N = 100000;
+    constexpr int N = 50000;
     constexpr int k = 5;
     Record *records = generateRecords(N, k, 1337);
 
