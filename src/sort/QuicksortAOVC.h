@@ -3,13 +3,6 @@
 #include "Stats.h"
 #include "Record.h"
 
-
-struct QuicksortOVCLessThanResult {
-    bool less;
-    uint32_t ovc;
-};
-
-
 class QuicksortAOVC {
     Stats stats;
 

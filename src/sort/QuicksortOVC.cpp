@@ -24,7 +24,7 @@ Stats QuicksortOVC::sort(Record* records, const int length, const int keyLength,
     int right = length;
     while (true) {
         Record &pivot = records[left];
-        Record temp[right - left];
+        auto * temp = new Record[right - left];
         int l = 0, r = right - left - 1;
         uint32_t pivotOvcCandidate = 0;
         for (int i = left + 1; i < right; i++) {
@@ -47,6 +47,7 @@ Stats QuicksortOVC::sort(Record* records, const int length, const int keyLength,
         for (int j = 0; j < right - left; j++) {
             records[left + j] = temp[j];
         }
+        delete [] temp;
 
 
         const int length_left = l;
@@ -103,17 +104,15 @@ QuicksortOVCLessThanResult QuicksortOVC::lessThan(const Record &left, const Reco
         i = offset(left.reverseOvc);
     }
 
-    if (i >= keyLength) {
-        return {false, genOVC(keyLength, 0)};
+    while (i < keyLength) {
+        stats.columnComparisons += 1;
+        if (left.key[i] != right.key[i])
+            break;
+        i++;
     }
 
-    while (i < keyLength && left.key[i] == right.key[i]) {
-        i += 1;
-        stats.columnComparisons += 1;
-    }
-    stats.columnComparisons += 1;
     if (i >= keyLength) {
-        return {true, genOVC(i, 0)};
+        return {true, genOVC(keyLength, 0)};
     }
     if (left.key[i] < right.key[i]) {
         return {true, genOVC(i, right.key[i])};
