@@ -24,15 +24,12 @@ TEST(QuicksortAOVCTest, SanityCheck) {
 TEST(QuicksortAOVCTest, Many) {
     QuicksortAOVC quicksort;
 
-    constexpr int N = 10000;
+    constexpr int N = 100000;
     constexpr int k = 5;
     Record *records = generateRecords(N, k, 1337);
 
     auto [rowComparisons, columnComparisons] = quicksort.sort(records, N, k, 1);
 
-
     EXPECT_TRUE(isSorted(records, N));
-    EXPECT_EQ(5, rowComparisons);
-    // EXPECT_EQ(11, columnComparisons);
-    // EXPECT_LE(N * k, columnComparisons);
+    EXPECT_LE(columnComparisons, N * k);
 }

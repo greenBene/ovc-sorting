@@ -18,4 +18,5 @@ class QuicksortAOVC {
 
   private:
     void sort(Record* records, int left, int right, int keyLength, int M);
+    static void move(Record *records, const Record *list, int &counter, int length);
 };
