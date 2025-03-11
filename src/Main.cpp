@@ -10,8 +10,8 @@ int main(int argc, char *argv[]) {
     std::cout << "Starting Quicksort Test" << std::endl;
     QuicksortAOVC quicksort_aovc;
 
-    constexpr int N = 500000;
-    constexpr int k = 5;
+    constexpr int N = 50000;
+    constexpr int k = 5000;
     Record *records = generateRecords(N, k, 1337);
 
     auto [rowComparisonsQAOVC, columnComparisonsQAOVC] = quicksort_aovc.sort(records, N, k, 1);

@@ -83,6 +83,12 @@ Stats QuicksortAOVC::sort(Record* records, int length, int keyLength, int M) {
 
   }
 
+  delete [] lowest;
+  delete [] lower;
+  delete [] equal;
+  delete [] greater;
+  delete [] greatest;
+
 
   return stats;
 }
