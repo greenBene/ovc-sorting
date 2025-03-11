@@ -9,7 +9,7 @@
 #include "AOVC.h"
 
 
-Stats InsertionSortAOVC::sortPositive(Record* records, int left, int right, int keyLength, Stats s) {
+Stats InsertionSortAOVC::sortPositive(Record* records, const int left, const int right, const int keyLength, Stats s) {
     stats.columnComparisons = s.columnComparisons;
     stats.rowComparisons = s.rowComparisons;
 
@@ -61,7 +61,7 @@ Stats InsertionSortAOVC::sortNegative(Record* records, const int left, const int
     stats.columnComparisons = s.columnComparisons;
     stats.rowComparisons = s.rowComparisons;
 
-    for (int j = 1; j < right; j++) {
+    for (int j = left; j < right; j++) {
         int i = j - 1;
         Record r = records[j];
         while (i >= left && negativeLessThan(r, records[i], keyLength)) {

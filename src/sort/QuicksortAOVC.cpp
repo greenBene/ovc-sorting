@@ -4,6 +4,7 @@
 #include <stack>
 
 #include "AOVC.h"
+#include "InsertionSortAOVC.h"
 
 struct Limits {
   int left, right;
@@ -11,6 +12,7 @@ struct Limits {
 
 Stats QuicksortAOVC::sort(Record* records, int length, int keyLength, int M) {
   stats = getNewStats();
+  InsertionSortAOVC insertionSort;
   std::stack<Limits> stack;
   int left, right;
 
@@ -73,14 +75,29 @@ Stats QuicksortAOVC::sort(Record* records, int length, int keyLength, int M) {
     move(records, greatest, counter, greatestCounter);
 
     int l = left;
-    if (lowestCounter > M) stack.push(Limits(l, l+lowestCounter));
+    if (lowestCounter > M) {
+      stack.push(Limits(l, l+lowestCounter));
+    } else if (lowestCounter > 1){
+      stats = insertionSort.sortNegative(records, l, l+lowestCounter, keyLength, stats);
+    }
     l+=lowestCounter;
-    if (lowerCounter > M) stack.push(Limits(l, l+lowerCounter));
+    if (lowerCounter > M) {
+      stack.push(Limits(l, l+lowerCounter));
+    } else if (lowerCounter > 1){
+      stats = insertionSort.sortNegative(records, l, l+lowerCounter, keyLength, stats);
+    }
     l+=lowerCounter+equalCounter;
-    if (greaterCounter > M) stack.push(Limits(l, l+greaterCounter));
+    if (greaterCounter > M) {
+      stack.push(Limits(l, l+greaterCounter));
+    } else if (greaterCounter > 1){
+      stats = insertionSort.sortPositive(records, l, l+greaterCounter, keyLength, stats);
+    }
     l+=greaterCounter;
-    if (greatestCounter > M) stack.push(Limits(l, l+greatestCounter));
-
+    if (greatestCounter > M) {
+      stack.push(Limits(l, l+greatestCounter));
+    } else if (greatestCounter > 1) {
+      stats = insertionSort.sortPositive(records, l, l+greatestCounter, keyLength, stats);
+    }
   }
 
   delete [] lowest;
@@ -88,7 +105,6 @@ Stats QuicksortAOVC::sort(Record* records, int length, int keyLength, int M) {
   delete [] equal;
   delete [] greater;
   delete [] greatest;
-
 
   return stats;
 }

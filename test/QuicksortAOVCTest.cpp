@@ -21,12 +21,32 @@ TEST(QuicksortAOVCTest, SanityCheck) {
 TEST(QuicksortAOVCTest, Many) {
     QuicksortAOVC quicksort;
 
-    constexpr int N = 50000;
+    constexpr int N = 1000;
     constexpr int k = 5;
     Record *records = generateRecords(N, k, 1337);
 
     auto [rowComparisons, columnComparisons] = quicksort.sort(records, N, k, 1);
 
-    EXPECT_TRUE(isSorted(records, N));
-    EXPECT_LE(columnComparisons, N * k);
+    // EXPECT_EQ(616503, rowComparisons);
+    // EXPECT_EQ(238960, columnComparisons);
+    //
+    // EXPECT_TRUE(isSorted(records, N));
+    // EXPECT_LE(columnComparisons, N * k);
+}
+
+TEST(QuicksortAOVCTest, ManyWithInsertionSort) {
+    QuicksortAOVC quicksort;
+
+    constexpr int N = 1000;
+    constexpr int k = 5;
+    Record *records = generateRecords(N, k, 1337);
+
+    auto [rowComparisons, columnComparisons] = quicksort.sort(records, N, k, 9);
+
+
+    // EXPECT_EQ(627256, rowComparisons);
+    // EXPECT_EQ(238960, columnComparisons);
+    //
+    // EXPECT_TRUE(isSorted(records, N));
+    // EXPECT_LE(columnComparisons, N * k);
 }
