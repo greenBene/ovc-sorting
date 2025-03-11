@@ -81,7 +81,6 @@ TEST(InsertionSortAOVCTest, NegativeSortingWorstCase) {
 
     EXPECT_EQ(6, stats.rowComparisons);
     EXPECT_EQ(9, stats.columnComparisons);
-    // EXPECT_TRUE(validOVC(records, 4, 3));
 }
 
 TEST(InsertionSortAOVCRest, NegativeSortingMany) {
