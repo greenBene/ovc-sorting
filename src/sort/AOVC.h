@@ -13,10 +13,10 @@
  */
 
 
-constexpr uint32_t POSITIVE_ZERO = 0x40000000;
-constexpr uint32_t NEGATIVE_ZERO = 0x80000000;
-constexpr uint32_t NEGATIVE_INFINITY = 0x00000000;
-constexpr uint32_t POSITIVE_INFINITY = 0xC0000000;
+constexpr uint32_t POSITIVE_AOVC_ZERO = 0x40000000;
+constexpr uint32_t NEGATIVE_AOVC_ZERO = 0x80000000;
+constexpr uint32_t MINUS_INFINITY = 0x00000000;
+constexpr uint32_t PLUS_INFINITY = 0xC0000000;
 
 
 

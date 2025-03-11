@@ -53,7 +53,7 @@ static bool validPositiveAOVC(const Record * records, const int N, const int key
         if (o < keyLength && records[i].key[o] != static_cast<char>(v)) {
             return false;
         }
-        if (o >= keyLength && aovc != POSITIVE_ZERO) {
+        if (o >= keyLength && aovc != POSITIVE_AOVC_ZERO) {
             return false;
         }
     }
@@ -77,7 +77,7 @@ static bool validNegativeAOVC(const Record * records, const int N, const int key
         if (o < keyLength && records[i].key[o] != static_cast<char>(v)) {
             return false;
         }
-        if (o >= keyLength && aovc != NEGATIVE_ZERO) {
+        if (o >= keyLength && aovc != NEGATIVE_AOVC_ZERO) {
             return false;
         }
     }

@@ -50,11 +50,11 @@ TEST(InsertionSortAOVCTest, NegativeSortingSanityCheck) {
     InsertionSortAOVC insertionSortAovc;
 
     Record records[] = {
-        {"bbb", 0,  POSITIVE_INFINITY},
-        {"abb", 0, POSITIVE_INFINITY},
-        {"aab", 0 , POSITIVE_INFINITY},
-        {"abb", 0 , POSITIVE_INFINITY},
-        {"aaa", 0 , POSITIVE_INFINITY}};
+        {"bbb", 0,  PLUS_INFINITY},
+        {"abb", 0, PLUS_INFINITY},
+        {"aab", 0 , PLUS_INFINITY},
+        {"abb", 0 , PLUS_INFINITY},
+        {"aaa", 0 , PLUS_INFINITY}};
     insertionSortAovc.sortNegative(records, 0, 5, 3, getNewStats());
 
     EXPECT_EQ("aaa", records[0].key);
@@ -68,10 +68,10 @@ TEST(InsertionSortAOVCTest, NegativeSortingWorstCase) {
     InsertionSortAOVC insertionSortAovc;
 
     Record records[] = {
-        {"aad", 0, POSITIVE_INFINITY},
-        {"aac", 0, POSITIVE_INFINITY},
-        {"aab", 0, POSITIVE_INFINITY},
-        {"aaa", 0, POSITIVE_INFINITY}};
+        {"aad", 0, PLUS_INFINITY},
+        {"aac", 0, PLUS_INFINITY},
+        {"aab", 0, PLUS_INFINITY},
+        {"aaa", 0, PLUS_INFINITY}};
     Stats stats = insertionSortAovc.sortPositive(records, 0, 4, 3, getNewStats());
 
     EXPECT_EQ("aaa", records[0].key);
@@ -87,7 +87,7 @@ TEST(InsertionSortAOVCRest, NegativeSortingMany) {
     InsertionSortAOVC quicksort;
     constexpr int N = 1000;
     constexpr int k = 5;
-    Record *records = generateRecords(N, k, 1337, 0, POSITIVE_INFINITY);
+    Record *records = generateRecords(N, k, 1337, 0, PLUS_INFINITY);
 
     quicksort.sortNegative(records, 0, N, k, getNewStats());
 

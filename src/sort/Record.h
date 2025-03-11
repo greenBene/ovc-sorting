@@ -37,7 +37,7 @@ static Record* generateRecords() {
     return generateRecords(keys, 99);
 }
 
-static Record* generateRecords(unsigned int n, unsigned int keyLength, unsigned int seed, uint32_t ovc = NEGATIVE_INFINITY, uint32_t aovc = NEGATIVE_INFINITY) {
+static Record* generateRecords(unsigned int n, unsigned int keyLength, unsigned int seed, uint32_t ovc = MINUS_INFINITY, uint32_t aovc = MINUS_INFINITY) {
     srand(seed);
     auto * records = new Record[n];
     for (int i = 0; i < n; i++) {
