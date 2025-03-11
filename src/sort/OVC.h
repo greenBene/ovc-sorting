@@ -3,6 +3,7 @@
 #include <cstdint>
 
 
+// TODO improve offset return type
 static uint32_t offset(const uint32_t ovc) {
     if ((ovc >> 30) == 0)
         return -1;
