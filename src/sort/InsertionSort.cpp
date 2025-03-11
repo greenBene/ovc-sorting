@@ -1,8 +1,6 @@
 #include "InsertionSort.h"
 #include "Stats.h"
 
-
-
 Stats InsertionSort::sort(Record records[], const int length, const int keyLength) {
   Stats stats = getNewStats();
   return sort(records, length, keyLength, stats);

@@ -13,6 +13,7 @@ enable_testing()
 add_executable(
         ${PROJECT_NAME}Test
         AOVCTest.cpp
+        HeapsortTest.cpp
         InsertionSortTest.cpp
         InsertionSortOVCTest.cpp
         InsertionSortAOVCTest.cpp
