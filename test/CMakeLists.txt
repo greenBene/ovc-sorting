@@ -15,6 +15,7 @@ add_executable(
         AOVCTest.cpp
         InsertionSortTest.cpp
         InsertionSortOVCTest.cpp
+        InsertionSortAOVCTest.cpp
         QuicksortTest.cpp
         QuicksortOVCTest.cpp
         QuicksortAOVCTest.cpp

@@ -2,6 +2,7 @@ add_library(
         sort
         InsertionSort.cpp
         InsertionSortOVC.cpp
+        InsertionSortAOVC.cpp
         Quicksort.cpp
         QuicksortOVC.cpp
         QuicksortAOVC.cpp
