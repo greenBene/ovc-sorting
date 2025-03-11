@@ -20,19 +20,15 @@ constexpr uint32_t PLUS_INFINITY = 0xC0000000;
 
 
 
-// TODO split into generatePositiveAOVC and generateNegativeAOVC
-static uint32_t genAOVC(const uint16_t arity, const bool negative, const uint16_t offset,  const uint16_t value) {
-
-    if (!negative) {
-        return (0b01 << 30) | (((arity - offset) << 16) + value);
-    }
-    else {
-        return (0b01 << 30) | (((0x3FFF ^ (arity-offset )) << 16) + value);
-    }
-
+static uint32_t generatePositiveAOVC(const uint16_t arity, const uint16_t offset, const uint16_t value) {
+    return (0b01 << 30) | (((arity - offset) << 16) + value);
 }
 
-static int offsetAOVC(const uint32_t aovc, const uint16_t arity) {
+static uint32_t generateNegativeAOVC(const uint16_t arity, const uint16_t offset, const uint16_t value) {
+    return (0b01 << 30) | (((0x3FFF ^ (arity-offset )) << 16) + value);
+}
+
+static int getOffsetAOVC(const uint32_t aovc, const uint16_t arity) {
     if (aovc >> 30 == 0 || aovc >> 30 == 3) {
         return -1;
     }
@@ -43,7 +39,7 @@ static int offsetAOVC(const uint32_t aovc, const uint16_t arity) {
     }
 }
 
-static uint16_t valueAOVC(const uint32_t aovc) {
+static uint16_t getValueAOVC(const uint32_t aovc) {
     if (aovc >> 30 == 0 || aovc >> 30 == 3) {
         return 0;
     }

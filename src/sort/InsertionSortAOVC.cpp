@@ -35,7 +35,7 @@ bool InsertionSortAOVC::positiveLessThan(Record &left, Record &right, const int 
         return false;
     }
 
-    int offset = offsetAOVC(left.aovc, keyLength) + 1;
+    int offset = getOffsetAOVC(left.aovc, keyLength) + 1;
     while (offset < keyLength) {
         stats.columnComparisons++;
         if (left.key[offset] != right.key[offset])
@@ -47,11 +47,11 @@ bool InsertionSortAOVC::positiveLessThan(Record &left, Record &right, const int 
         return false;
     }
     if (left.key[offset] < right.key[offset]) {
-        right.aovc = genAOVC(keyLength, false, offset, right.key[offset]);
+        right.aovc = generatePositiveAOVC(keyLength, offset, right.key[offset]);
         return true;
     }
     else {
-        left.aovc = genAOVC(keyLength, false, offset, left.key[offset]);
+        left.aovc = generatePositiveAOVC(keyLength, offset, left.key[offset]);
         return false;
     }
 }
@@ -84,7 +84,7 @@ bool InsertionSortAOVC::negativeLessThan(Record &left, Record &right, const int 
         return false;
     }
 
-    int offset = offsetAOVC(left.aovc, keyLength) + 1;
+    int offset = getOffsetAOVC(left.aovc, keyLength) + 1;
     while (offset < keyLength) {
         stats.columnComparisons++;
         if (left.key[offset] != right.key[offset])
@@ -96,11 +96,11 @@ bool InsertionSortAOVC::negativeLessThan(Record &left, Record &right, const int 
         return false;
     }
     if (left.key[offset] < right.key[offset]) {
-        left.aovc = genAOVC(keyLength, true, offset, left.key[offset]);
+        left.aovc = generateNegativeAOVC(keyLength, offset, left.key[offset]);
         return true;
     }
     else {
-        right.aovc = genAOVC(keyLength, true, offset, right.key[offset]);
+        right.aovc = generateNegativeAOVC(keyLength, offset, right.key[offset]);
         return false;
     }
 }

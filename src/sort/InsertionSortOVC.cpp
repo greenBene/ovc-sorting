@@ -37,11 +37,11 @@ bool InsertionSortOVC::lessThan(Record &left, Record &right, const int keyLength
     return false;
   }
 
-  uint16_t i = offset(left.ovc) + 1;
+  uint16_t i = getOffsetOVC(left.ovc) + 1;
 
 
   if (i >= keyLength) {
-    left.ovc = genOVC(keyLength, 0);
+    left.ovc = generateOVC(keyLength, 0);
     return false;
   }
 
@@ -52,11 +52,11 @@ bool InsertionSortOVC::lessThan(Record &left, Record &right, const int keyLength
   }
 
   if (left.key[i] < right.key[i]) {
-    right.ovc = genOVC(i, right.key[i]);
+    right.ovc = generateOVC(i, right.key[i]);
     return true;
   }
   else {
-    left.ovc = genOVC(i, left.key[i]);
+    left.ovc = generateOVC(i, left.key[i]);
     return false;
   }
 }

@@ -18,8 +18,8 @@ static bool isSorted(const Record * records, const int N) {
 static bool validOVC(const Record * records, const int N, const int keyLength) {
     for (int i = 1; i < N; i++) {
         const uint32_t ovc = records[i].ovc;
-        const uint32_t o = offset(ovc);
-        const uint32_t v = value(ovc);
+        const uint32_t o = getOffsetOVC(ovc);
+        const uint32_t v = getValueOVC(ovc);
 
         for (int t = 0; t < o; t++) {
             if (records[i].key[t] != records[i-1].key[t]) {
@@ -39,8 +39,8 @@ static bool validOVC(const Record * records, const int N, const int keyLength) {
 static bool validPositiveAOVC(const Record * records, const int N, const int keyLength) {
     for (int i = 1; i < N; i++) {
         const uint32_t aovc = records[i].aovc;
-        const uint32_t o = offsetAOVC(aovc, keyLength);
-        const uint32_t v = valueAOVC(aovc);
+        const uint32_t o = getOffsetAOVC(aovc, keyLength);
+        const uint32_t v = getValueAOVC(aovc);
 
         for (int t = 0; t < o; t++) {
             if (records[i].key[t] != records[i-1].key[t]) {
@@ -63,8 +63,8 @@ static bool validPositiveAOVC(const Record * records, const int N, const int key
 static bool validNegativeAOVC(const Record * records, const int N, const int keyLength) {
     for (int i = N-2; i > 0; i--) {
         const uint32_t aovc = records[i].aovc;
-        const uint32_t o = offsetAOVC(aovc, keyLength);
-        const uint32_t v = valueAOVC(aovc);
+        const uint32_t o = getOffsetAOVC(aovc, keyLength);
+        const uint32_t v = getValueAOVC(aovc);
 
         for (int t = 0; t < o; t++) {
             if (records[i].key[t] != records[i+1].key[t]) {

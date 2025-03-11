@@ -99,9 +99,9 @@ QuicksortOVCLessThanResult QuicksortOVC::lessThan(const Record &left, const Reco
     }
 
 
-    int i = offset(left.ovc) + 1;
-    if (offset(left.reverseOvc) > i) {
-        i = offset(left.reverseOvc);
+    int i = getOffsetOVC(left.ovc) + 1;
+    if (getOffsetOVC(left.reverseOvc) > i) {
+        i = getOffsetOVC(left.reverseOvc);
     }
 
     while (i < keyLength) {
@@ -112,11 +112,11 @@ QuicksortOVCLessThanResult QuicksortOVC::lessThan(const Record &left, const Reco
     }
 
     if (i >= keyLength) {
-        return {true, genOVC(keyLength, 0)};
+        return {true, generateOVC(keyLength, 0)};
     }
     if (left.key[i] < right.key[i]) {
-        return {true, genOVC(i, right.key[i])};
+        return {true, generateOVC(i, right.key[i])};
     } else {
-        return {false, genOVC(i, left.key[i])};
+        return {false, generateOVC(i, left.key[i])};
     }
 }

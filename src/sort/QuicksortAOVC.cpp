@@ -44,7 +44,7 @@ Stats QuicksortAOVC::sort(Record* records, int length, int keyLength, int M) {
       } else if (records[i].aovc > pivot.aovc ) {
         greatest[greatestCounter++] = records[i];
       } else {
-        int offset = offsetAOVC(records[i].aovc, keyLength) + 1;
+        int offset = getOffsetAOVC(records[i].aovc, keyLength) + 1;
         while (offset < keyLength) {
           stats.columnComparisons++;
           if (records[i].key[offset] != pivot.key[offset])
@@ -54,10 +54,10 @@ Stats QuicksortAOVC::sort(Record* records, int length, int keyLength, int M) {
         if (offset >= keyLength) {
           equal[equalCounter++] = records[i];
         } else if (records[i].key[offset] < pivot.key[offset]) {
-          records[i].aovc = genAOVC(keyLength, true, offset, records[i].key[offset]);
+          records[i].aovc = generateNegativeAOVC(keyLength, offset, records[i].key[offset]);
           lower[lowerCounter++] = records[i];
         } else {
-          records[i].aovc = genAOVC(keyLength, false, offset, records[i].key[offset]);
+          records[i].aovc = generatePositiveAOVC(keyLength, offset, records[i].key[offset]);
           greater[greaterCounter++] = records[i];
         }
 
