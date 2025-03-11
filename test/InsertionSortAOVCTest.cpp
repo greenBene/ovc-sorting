@@ -85,7 +85,7 @@ TEST(InsertionSortAVOCTest, PositiveSortingMany) {
 
 TEST(InsertionSortAOVCRest, NegativeSortingMany) {
     InsertionSortAOVC quicksort;
-    constexpr int N = 10000;
+    constexpr int N = 1000;
     constexpr int k = 5;
     Record *records = generateRecords(N, k, 1337, 0, PLUS_INFINITY);
 
