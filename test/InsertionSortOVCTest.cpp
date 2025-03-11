@@ -56,8 +56,17 @@ TEST(InsertionSortOVCTest, Many) {
     constexpr int k = 5;
     Record *records = generateRecords(N, k, 1337);
 
+    const int * before = getValueArray(records, N, k);
     quicksort.sort(records, N, k);
+    const int * after = getValueArray(records, N, k);
 
     EXPECT_TRUE(isSorted(records, N));
     EXPECT_TRUE(validOVC(records, N, k));
+    for (int i = 0; i < pow(10, k); i++) {
+        EXPECT_EQ(before[i], after[i]);
+    }
+
+    delete [] records;
+    delete[] before;
+    delete[] after;
 }

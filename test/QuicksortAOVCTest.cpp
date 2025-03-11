@@ -25,13 +25,15 @@ TEST(QuicksortAOVCTest, Many) {
     constexpr int k = 5;
     Record *records = generateRecords(N, k, 1337);
 
+    const int * before = getValueArray(records, N, k);
     auto [rowComparisons, columnComparisons] = quicksort.sort(records, N, k, 1);
+    const int * after = getValueArray(records, N, k);
 
-    // EXPECT_EQ(616503, rowComparisons);
-    // EXPECT_EQ(238960, columnComparisons);
-    //
-    // EXPECT_TRUE(isSorted(records, N));
-    // EXPECT_LE(columnComparisons, N * k);
+    EXPECT_TRUE(isSorted(records, N));
+    EXPECT_LE(columnComparisons, N * k);
+    for (int i = 0; i < pow(10, k); i++) {
+        EXPECT_EQ(before[i], after[i]);
+    }
 }
 
 TEST(QuicksortAOVCTest, ManyWithInsertionSort) {
@@ -41,12 +43,13 @@ TEST(QuicksortAOVCTest, ManyWithInsertionSort) {
     constexpr int k = 5;
     Record *records = generateRecords(N, k, 1337);
 
+    const int * before = getValueArray(records, N, k);
     auto [rowComparisons, columnComparisons] = quicksort.sort(records, N, k, 9);
+    const int * after = getValueArray(records, N, k);
 
-
-    // EXPECT_EQ(627256, rowComparisons);
-    // EXPECT_EQ(238960, columnComparisons);
-    //
-    // EXPECT_TRUE(isSorted(records, N));
-    // EXPECT_LE(columnComparisons, N * k);
+    EXPECT_TRUE(isSorted(records, N));
+    EXPECT_LE(columnComparisons, N * k);
+    for (int i = 0; i < pow(10, k); i++) {
+        EXPECT_EQ(before[i], after[i]);
+    }
 }

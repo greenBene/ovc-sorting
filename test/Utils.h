@@ -83,3 +83,12 @@ static bool validNegativeAOVC(const Record * records, const int N, const int key
     }
     return true;
 }
+
+
+static int * getValueArray(const Record* records, const int N, const int keyLength) {
+    const auto arr = new int[pow(10, keyLength)];
+    for (int i = 0; i < N; i++) {
+        arr[std::stoi(records[i].key)] += 1;
+    }
+    return arr;
+}

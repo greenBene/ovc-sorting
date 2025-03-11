@@ -77,10 +77,19 @@ TEST(InsertionSortAVOCTest, PositiveSortingMany) {
     constexpr int k = 5;
     Record *records = generateRecords(N, k, 1337);
 
+    const int * before = getValueArray(records, N, k);
     quicksort.sortPositive(records, 0, N, k, getNewStats());
+    const int * after = getValueArray(records, N, k);
 
     EXPECT_TRUE(isSorted(records, N));
     EXPECT_TRUE(validPositiveAOVC(records, N, k));
+    for (int i = 0; i < pow(10, k); i++) {
+        EXPECT_EQ(before[i], after[i]);
+    }
+
+    delete [] records;
+    delete[] before;
+    delete[] after;
 }
 
 TEST(InsertionSortAOVCRest, NegativeSortingMany) {
@@ -89,8 +98,17 @@ TEST(InsertionSortAOVCRest, NegativeSortingMany) {
     constexpr int k = 5;
     Record *records = generateRecords(N, k, 1337, 0, PLUS_INFINITY);
 
+    const int * before = getValueArray(records, N, k);
     quicksort.sortNegative(records, 0, N, k, getNewStats());
+    const int * after = getValueArray(records, N, k);
 
     EXPECT_TRUE(isSorted(records, N));
     EXPECT_TRUE(validNegativeAOVC(records, N, k));
+    for (int i = 0; i < pow(10, k); i++) {
+        EXPECT_EQ(before[i], after[i]);
+    }
+
+    delete [] records;
+    delete[] before;
+    delete[] after;
 }
