@@ -26,6 +26,37 @@ Stats InsertionSortAOVC::sortPositive(Record* records, int left, int right, int 
     return stats;
 }
 
+bool InsertionSortAOVC::positiveLessThan(Record &left, Record &right, const int keyLength) {
+    stats.rowComparisons++;
+    if (left.aovc < right.aovc) {
+        return true;
+    }
+    if (left.aovc > right.aovc) {
+        return false;
+    }
+
+    int offset = offsetAOVC(left.aovc, keyLength) + 1;
+    while (offset < keyLength) {
+        stats.columnComparisons++;
+        if (left.key[offset] != right.key[offset])
+            break;
+        offset++;
+    }
+    if (offset >= keyLength) {
+        left.aovc = POSITIVE_ZERO;
+        return false;
+    }
+    if (left.key[offset] < right.key[offset]) {
+        right.aovc = genAOVC(keyLength, false, offset, right.key[offset]);
+        return true;
+    }
+    else {
+        left.aovc = genAOVC(keyLength, false, offset, left.key[offset]);
+        return false;
+    }
+}
+
+
 Stats InsertionSortAOVC::sortNegative(Record* records, const int left, const int right, const int keyLength, Stats s) {
     stats.columnComparisons = s.columnComparisons;
     stats.rowComparisons = s.rowComparisons;
@@ -45,6 +76,7 @@ Stats InsertionSortAOVC::sortNegative(Record* records, const int left, const int
 
 
 bool InsertionSortAOVC::negativeLessThan(Record &left, Record &right, const int keyLength) {
+    stats.rowComparisons++;
     if (left.aovc < right.aovc) {
         return true;
     }
@@ -54,6 +86,7 @@ bool InsertionSortAOVC::negativeLessThan(Record &left, Record &right, const int 
 
     int offset = offsetAOVC(left.aovc, keyLength) + 1;
     while (offset < keyLength) {
+        stats.columnComparisons++;
         if (left.key[offset] != right.key[offset])
             break;
         offset++;
@@ -71,33 +104,4 @@ bool InsertionSortAOVC::negativeLessThan(Record &left, Record &right, const int 
         return false;
     }
 }
-
-bool InsertionSortAOVC::positiveLessThan(Record &left, Record &right, const int keyLength) {
-    if (left.aovc < right.aovc) {
-        return true;
-    }
-    if (left.aovc > right.aovc) {
-        return false;
-    }
-
-    int offset = offsetAOVC(left.aovc, keyLength) + 1;
-    while (offset < keyLength) {
-        if (left.key[offset] != right.key[offset])
-            break;
-        offset++;
-    }
-    if (offset >= keyLength) {
-        right.aovc = POSITIVE_ZERO;
-        return false;
-    }
-    if (left.key[offset] < right.key[offset]) {
-        right.aovc = genAOVC(keyLength, false, offset, right.key[offset]);
-        return true;
-    }
-    else {
-        left.aovc = genAOVC(keyLength, false, offset, left.key[offset]);
-        return false;
-    }
-}
-
 
