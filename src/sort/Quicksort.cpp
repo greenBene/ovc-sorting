@@ -30,10 +30,10 @@ Stats Quicksort::sort(Record *records, const int length, const int keyLength, co
                 } while (j > 0 && lessThan(r, records[j], keyLength));
 
                 if (i < j) {
-                    swap(records, length, i, j);
+                    swap(records, i, j);
                 }
             }
-            swap(records, length, left, j);
+            swap(records, left, j);
 
             int length_left = j - left;
             int length_right = right - j;
@@ -67,10 +67,7 @@ Stats Quicksort::sort(Record *records, const int length, const int keyLength, co
     return stats;
 }
 
-bool Quicksort::swap(Record* records, const int length, const int a, const int b) {
-    if (a < 0 || a >= length || b < 0 || b >= length ) {
-        return false;
-    }
+bool Quicksort::swap(Record* records, const int a, const int b) {
     const Record r = records[b];
     records[b] = records[a];
     records[a] = r;

@@ -66,6 +66,22 @@ TEST(QuicksortOVCTest, ThesisExampleWithInsertionSort) {
     EXPECT_TRUE(validOVC(records, 9, 3));
 }
 
+TEST(QuicksortOVCTest, DirectToQuicksort) {
+    QuicksortOVC quicksort;
+
+    std::string keys[] = {"bbb", "aab", "abb", "aaa"};
+    Record * records = generateRecords(keys, 4);
+
+    quicksort.sort(records, 4, 3, 10);
+
+    EXPECT_EQ("aaa", records[0].key);
+    EXPECT_EQ("aab", records[1].key);
+    EXPECT_EQ("abb", records[2].key);
+    EXPECT_EQ("bbb", records[3].key);
+
+    EXPECT_TRUE(validOVC(records, 4, 3));
+}
+
 
 TEST(QuicksortOVCTest, WorstCase) {
     QuicksortOVC quicksort;

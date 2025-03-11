@@ -11,7 +11,7 @@ class Quicksort {
 
   private:
     bool lessThan(const Record &left, const Record &right, int keyLength);
-    static bool swap(Record* records, int length, int a, int b);
+    static bool swap(Record* records, int a, int b);
 
 };
 
