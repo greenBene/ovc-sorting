@@ -1,6 +1,7 @@
 add_library(
         sort
         Heapsort.cpp
+        HeapsortOVC.cpp
         InsertionSort.cpp
         InsertionSortOVC.cpp
         InsertionSortAOVC.cpp

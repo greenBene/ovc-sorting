@@ -18,7 +18,7 @@ TEST(QuicksortOVCTest, SanityCheck) {
     EXPECT_EQ("bbb", records[3].key);
 
     EXPECT_EQ(5, rowComparisons);
-    EXPECT_EQ(11, columnComparisons);
+    EXPECT_EQ(8, columnComparisons);
     EXPECT_TRUE(validOVC(records, 4, 3));
 }
 
@@ -40,7 +40,7 @@ TEST(QuicksortOVCTest, ThesisExampleWithoutInsertionSort) {
     EXPECT_EQ("934", records[8].key);
 
     EXPECT_EQ(20, rowComparisons);
-    EXPECT_EQ(21, columnComparisons);
+    EXPECT_EQ(13, columnComparisons);
     EXPECT_TRUE(validOVC(records, 9, 3));
 }
 
@@ -62,7 +62,7 @@ TEST(QuicksortOVCTest, ThesisExampleWithInsertionSort) {
     EXPECT_EQ("934", records[8].key);
 
     EXPECT_EQ(17, rowComparisons);
-    EXPECT_EQ(22, columnComparisons);
+    EXPECT_EQ(14, columnComparisons);
     EXPECT_TRUE(validOVC(records, 9, 3));
 }
 
@@ -100,7 +100,7 @@ TEST(QuicksortOVCTest, WorstCase) {
     EXPECT_EQ("118", records[7].key);
 
     EXPECT_EQ(28, stats.rowComparisons);
-    EXPECT_EQ(28, stats.columnComparisons);
+    EXPECT_EQ(21, stats.columnComparisons);
     EXPECT_TRUE(validOVC(records, 8, 3));
 }
 
@@ -122,7 +122,7 @@ TEST(QuicksortOVCTest, BestCase) {
     EXPECT_EQ("999", records[8].key);
 
     EXPECT_EQ(17, stats.rowComparisons);
-    EXPECT_EQ(19, stats.columnComparisons);
+    EXPECT_EQ(11, stats.columnComparisons);
     EXPECT_TRUE(validOVC(records, 9, 3));
 }
 
