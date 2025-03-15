@@ -114,3 +114,24 @@ void QuicksortAOVC::move(Record* records, const Record * list, int &counter, con
     records[counter++] = list[i];
   }
 }
+
+void QuicksortAOVC::updateToPositiveAOVC(Record * records, const unsigned int length, const unsigned int keyLength, Stats & stats) {
+  if (isNegative(records[0].aovc)) {
+    records[0].aovc = AOVC_MINUS_INFINITY;
+  }
+
+  for (int i = 1; i < length; i++) {
+    stats.rowComparisons++;
+    int offset = 0 ;
+    while (offset < keyLength) {
+      stats.columnComparisons++;
+      if (records[i].key[offset] != records[i-1].key[offset])
+        break;
+      offset++;
+    }
+    if (offset >= keyLength)
+      records[i].aovc = AOVC_POSITIVE_ZERO;
+    else
+      records[i].aovc = generatePositiveAOVC(keyLength, offset, records[i].key[offset]);
+  }
+}

@@ -46,3 +46,7 @@ static uint16_t getValueAOVC(const uint32_t aovc) {
     return aovc & 0x0000FFFF;
 }
 
+static bool isNegative(const uint32_t aovc) {
+    return aovc >> 29 == 0b011;
+}
+

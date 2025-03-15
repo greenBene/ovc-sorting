@@ -53,3 +53,31 @@ TEST(QuicksortAOVCTest, ManyWithInsertionSort) {
         EXPECT_EQ(before[i], after[i]);
     }
 }
+
+TEST(QuicksortAOVCTest, ManyWithFixedAOVC) {
+    QuicksortAOVC quicksort;
+
+    constexpr int N = 1000;
+    constexpr int k = 5;
+    Record *records = generateRecords(N, k, 1337);
+
+    const int * before = getValueArray(records, N, k);
+    Stats stats = quicksort.sort(records, N, k, 1);
+    const int * after = getValueArray(records, N, k);
+
+    EXPECT_TRUE(isSorted(records, N));
+    EXPECT_LE(stats.columnComparisons, N * k);
+    for (int i = 0; i < pow(10, k); i++) {
+        EXPECT_EQ(before[i], after[i]);
+    }
+
+    EXPECT_EQ(7666, stats.rowComparisons);
+    EXPECT_EQ(3302, stats.columnComparisons);
+    quicksort.updateToPositiveAOVC(records, N, k, stats);
+
+    EXPECT_TRUE(validPositiveAOVC(records, N, k));
+    EXPECT_EQ(8665, stats.rowComparisons);
+    EXPECT_EQ(6604, stats.columnComparisons);
+    EXPECT_LE(stats.columnComparisons, 2 * N * k);
+
+}
