@@ -43,7 +43,7 @@ bool InsertionSortAOVC::positiveLessThan(Record &left, Record &right, const int 
         offset++;
     }
     if (offset >= keyLength) {
-        left.aovc = POSITIVE_AOVC_ZERO;
+        left.aovc = AOVC_POSITIVE_ZERO;
         return false;
     }
     if (left.key[offset] < right.key[offset]) {
@@ -92,7 +92,7 @@ bool InsertionSortAOVC::negativeLessThan(Record &left, Record &right, const int 
         offset++;
     }
     if (offset >= keyLength) {
-        right.aovc = NEGATIVE_AOVC_ZERO;
+        right.aovc = AOVC_NEGATIVE_ZERO;
         return false;
     }
     if (left.key[offset] < right.key[offset]) {

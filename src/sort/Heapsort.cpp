@@ -56,4 +56,3 @@ bool Heapsort::lessThan(const Record &left, const Record &right, int keyLength) 
 
     return false;
 }
-
