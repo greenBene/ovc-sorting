@@ -40,26 +40,26 @@ int main(int argc, char *argv[]) {
 
 
 
-    std::cout << "QUICKSORT, M = 9" << std::endl;
-
-    records = generateRecords(N, k, 1337);
-    start = std::chrono::system_clock::now();
-    stats = quicksort.sort(records, N, k, 9);
-    stop = std::chrono::system_clock::now();
-    std::cout << "Test 1, " << stats.rowComparisons << ", " << stats.columnComparisons << ", " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start) << std::endl;
-
-    records = generateRecords(N, k, 1338);
-    start = std::chrono::system_clock::now();
-    stats = quicksort.sort(records, N, k, 9);
-    stop = std::chrono::system_clock::now();
-    std::cout << "Test 2, " << stats.rowComparisons << ", " << stats.columnComparisons << ", " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start) << std::endl;
-
-    records = generateRecords(N, k, 1339);
-    start = std::chrono::system_clock::now();
-    stats = quicksort.sort(records, N, k, 9);
-    stop = std::chrono::system_clock::now();
-    std::cout << "Test 3, " << stats.rowComparisons << ", " << stats.columnComparisons << ", " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start) << std::endl;
-
+    // std::cout << "QUICKSORT, M = 9" << std::endl;
+    //
+    // records = generateRecords(N, k, 1337);
+    // start = std::chrono::system_clock::now();
+    // stats = quicksort.sort(records, N, k, 9);
+    // stop = std::chrono::system_clock::now();
+    // std::cout << "Test 1, " << stats.rowComparisons << ", " << stats.columnComparisons << ", " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start) << std::endl;
+    //
+    // records = generateRecords(N, k, 1338);
+    // start = std::chrono::system_clock::now();
+    // stats = quicksort.sort(records, N, k, 9);
+    // stop = std::chrono::system_clock::now();
+    // std::cout << "Test 2, " << stats.rowComparisons << ", " << stats.columnComparisons << ", " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start) << std::endl;
+    //
+    // records = generateRecords(N, k, 1339);
+    // start = std::chrono::system_clock::now();
+    // stats = quicksort.sort(records, N, k, 9);
+    // stop = std::chrono::system_clock::now();
+    // std::cout << "Test 3, " << stats.rowComparisons << ", " << stats.columnComparisons << ", " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start) << std::endl;
+    //
 
 
     std::cout << "QUICKSORT OVC" << std::endl;
@@ -85,29 +85,29 @@ int main(int argc, char *argv[]) {
 
 
 
-    std::cout << "QUICKSORT OVC, M = 9" << std::endl;
+    // std::cout << "QUICKSORT OVC, M = 9" << std::endl;
+    //
+    // records = generateRecords(N, k, 1337);
+    // start = std::chrono::system_clock::now();
+    // stats = quicksortOVC.sort(records, N, k, 9);
+    // stop = std::chrono::system_clock::now();
+    // std::cout << "Test 1, " << stats.rowComparisons << ", " << stats.columnComparisons << ", " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start) << std::endl;
+    //
+    // records = generateRecords(N, k, 1338);
+    // start = std::chrono::system_clock::now();
+    // stats = quicksortOVC.sort(records, N, k, 9);
+    // stop = std::chrono::system_clock::now();
+    // std::cout << "Test 2, " << stats.rowComparisons << ", " << stats.columnComparisons << ", " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start) << std::endl;
+    //
+    // records = generateRecords(N, k, 1339);
+    // start = std::chrono::system_clock::now();
+    // stats = quicksortOVC.sort(records, N, k, 9);
+    // stop = std::chrono::system_clock::now();
+    // std::cout << "Test 3, " << stats.rowComparisons << ", " << stats.columnComparisons << ", " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start) << std::endl;
+    //
 
-    records = generateRecords(N, k, 1337);
-    start = std::chrono::system_clock::now();
-    stats = quicksortOVC.sort(records, N, k, 9);
-    stop = std::chrono::system_clock::now();
-    std::cout << "Test 1, " << stats.rowComparisons << ", " << stats.columnComparisons << ", " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start) << std::endl;
 
-    records = generateRecords(N, k, 1338);
-    start = std::chrono::system_clock::now();
-    stats = quicksortOVC.sort(records, N, k, 9);
-    stop = std::chrono::system_clock::now();
-    std::cout << "Test 2, " << stats.rowComparisons << ", " << stats.columnComparisons << ", " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start) << std::endl;
-
-    records = generateRecords(N, k, 1339);
-    start = std::chrono::system_clock::now();
-    stats = quicksortOVC.sort(records, N, k, 9);
-    stop = std::chrono::system_clock::now();
-    std::cout << "Test 3, " << stats.rowComparisons << ", " << stats.columnComparisons << ", " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start) << std::endl;
-
-
-
-    std::cout << "QUICKSORT AOVC" << std::endl;
+    std::cout << "QUICKSORT NOVC" << std::endl;
     QuicksortAOVC quicksortAOVC;
 
     records = generateRecords(N, k, 1337);
@@ -130,25 +130,25 @@ int main(int argc, char *argv[]) {
 
 
 
-    std::cout << "QUICKSORT AOVC, M=9" << std::endl;
-
-    records = generateRecords(N, k, 1337);
-    start = std::chrono::system_clock::now();
-    stats = quicksortAOVC.sort(records, N, k, 9);
-    stop = std::chrono::system_clock::now();
-    std::cout << "Test 1, " << stats.rowComparisons << ", " << stats.columnComparisons << ", " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start) << std::endl;
-
-    records = generateRecords(N, k, 1338);
-    start = std::chrono::system_clock::now();
-    stats = quicksortAOVC.sort(records, N, k, 9);
-    stop = std::chrono::system_clock::now();
-    std::cout << "Test 2, " << stats.rowComparisons << ", " << stats.columnComparisons << ", " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start) << std::endl;
-
-    records = generateRecords(N, k, 1339);
-    start = std::chrono::system_clock::now();
-    stats = quicksortAOVC.sort(records, N, k, 9);
-    stop = std::chrono::system_clock::now();
-    std::cout << "Test 3, " << stats.rowComparisons << ", " << stats.columnComparisons << ", " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start) << std::endl;
+    // std::cout << "QUICKSORT AOVC, M=9" << std::endl;
+    //
+    // records = generateRecords(N, k, 1337);
+    // start = std::chrono::system_clock::now();
+    // stats = quicksortAOVC.sort(records, N, k, 9);
+    // stop = std::chrono::system_clock::now();
+    // std::cout << "Test 1, " << stats.rowComparisons << ", " << stats.columnComparisons << ", " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start) << std::endl;
+    //
+    // records = generateRecords(N, k, 1338);
+    // start = std::chrono::system_clock::now();
+    // stats = quicksortAOVC.sort(records, N, k, 9);
+    // stop = std::chrono::system_clock::now();
+    // std::cout << "Test 2, " << stats.rowComparisons << ", " << stats.columnComparisons << ", " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start) << std::endl;
+    //
+    // records = generateRecords(N, k, 1339);
+    // start = std::chrono::system_clock::now();
+    // stats = quicksortAOVC.sort(records, N, k, 9);
+    // stop = std::chrono::system_clock::now();
+    // std::cout << "Test 3, " << stats.rowComparisons << ", " << stats.columnComparisons << ", " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start) << std::endl;
 
 
 
@@ -178,27 +178,27 @@ int main(int argc, char *argv[]) {
     std::cout << "Test 3, " << stats.rowComparisons << ", " << stats.columnComparisons << ", " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start) << std::endl;
 
 
-    std::cout << "QUICKSORT AOVC, M = 9 + UPDATED AOVC" << std::endl;
-
-    records = generateRecords(N, k, 1337);
-    start = std::chrono::system_clock::now();
-    stats = quicksortAOVC.sort(records, N, k, 9);
-    quicksortAOVC.updateToPositiveAOVC(records, N, k, stats);
-    stop = std::chrono::system_clock::now();
-    std::cout << "Test 1, " << stats.rowComparisons << ", " << stats.columnComparisons << ", " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start) << std::endl;
-
-    records = generateRecords(N, k, 1338);
-    start = std::chrono::system_clock::now();
-    stats = quicksortAOVC.sort(records, N, k, 9);
-    quicksortAOVC.updateToPositiveAOVC(records, N, k, stats);
-    stop = std::chrono::system_clock::now();
-    std::cout << "Test 2, " << stats.rowComparisons << ", " << stats.columnComparisons << ", " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start) << std::endl;
-
-    records = generateRecords(N, k, 1339);
-    start = std::chrono::system_clock::now();
-    stats = quicksortAOVC.sort(records, N, k, 9);
-    quicksortAOVC.updateToPositiveAOVC(records, N, k, stats);
-    stop = std::chrono::system_clock::now();
-    std::cout << "Test 3, " << stats.rowComparisons << ", " << stats.columnComparisons << ", " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start) << std::endl;
+    // std::cout << "QUICKSORT AOVC, M = 9 + UPDATED AOVC" << std::endl;
+    //
+    // records = generateRecords(N, k, 1337);
+    // start = std::chrono::system_clock::now();
+    // stats = quicksortAOVC.sort(records, N, k, 9);
+    // quicksortAOVC.updateToPositiveAOVC(records, N, k, stats);
+    // stop = std::chrono::system_clock::now();
+    // std::cout << "Test 1, " << stats.rowComparisons << ", " << stats.columnComparisons << ", " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start) << std::endl;
+    //
+    // records = generateRecords(N, k, 1338);
+    // start = std::chrono::system_clock::now();
+    // stats = quicksortAOVC.sort(records, N, k, 9);
+    // quicksortAOVC.updateToPositiveAOVC(records, N, k, stats);
+    // stop = std::chrono::system_clock::now();
+    // std::cout << "Test 2, " << stats.rowComparisons << ", " << stats.columnComparisons << ", " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start) << std::endl;
+    //
+    // records = generateRecords(N, k, 1339);
+    // start = std::chrono::system_clock::now();
+    // stats = quicksortAOVC.sort(records, N, k, 9);
+    // quicksortAOVC.updateToPositiveAOVC(records, N, k, stats);
+    // stop = std::chrono::system_clock::now();
+    // std::cout << "Test 3, " << stats.rowComparisons << ", " << stats.columnComparisons << ", " << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start) << std::endl;
 }
 
