@@ -1,5 +1,6 @@
 #include <HeapsortOVC.h>
 #include <iostream>
+#include <Mergesort.h>
 #include <ostream>
 #include <Quicksort.h>
 #include <QuicksortAOVC.h>
@@ -8,23 +9,26 @@
 
 int main(int argc, char *argv[]) {
 
-    HeapsortOVC heapsortOvc;
-    constexpr int N = 500000;
-    constexpr int k = 5;
-    Record *records = generateRecords(N, k, 1337);
+    Mergesort mergesort;
 
-    auto [rowComparisonsH, columnComparisonsH] = heapsortOvc.sort(records, N, k);
+    // std::string keys[] = {"594", "870", "809", "273", "510", "256", "383", "827"};
+    // Record * records = generateRecords(keys, 8);
 
-    std::cout << "HEAPSORT OVC: rowCmp: " << rowComparisonsH << ", colCmp: " << columnComparisonsH << std::endl;
+    int N = 7;
+    int k = 3;
+    Record * records = generateRecords(N, k, 1338);
 
-    QuicksortAOVC quicksort;
-
-    records = generateRecords(N, k, 1337);
-
-    auto [rowComparisonsQ, columnComparisonsQ] = quicksort.sort(records, N, k, 1);
-
-    std::cout << "QUICKSORT AOVC: rowCmp: " << rowComparisonsQ << ", colCmp: " << columnComparisonsQ << std::endl;
+    for (int i = 0; i < N; i++) {
+        std::cout << records[i].key << " ";
+    }
+    std::cout << std::endl;
 
 
+    mergesort.sort(records, N, k);
+
+    for (int i = 0; i<N; i++) std::cout << records[i].key << " ";
+    std::cout << std::endl;
+
+    std::cout << "DONE";
 }
 
