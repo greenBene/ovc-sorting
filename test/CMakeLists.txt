@@ -14,6 +14,7 @@ add_executable(
         ${PROJECT_NAME}Test
         AOVCTest.cpp
         HeapsortTest.cpp
+        HeapsortOVCTest.cpp
         InsertionSortTest.cpp
         InsertionSortOVCTest.cpp
         InsertionSortAOVCTest.cpp
