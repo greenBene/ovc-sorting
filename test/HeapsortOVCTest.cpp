@@ -17,3 +17,28 @@ TEST(HeapsortOVCTest, SanityCheck) {
     EXPECT_EQ("abb", records[3].key);
     EXPECT_EQ("bbb", records[4].key);
 }
+
+TEST(HeapsortOVCTest, Many) {
+    HeapsortOVC heapsort;
+    constexpr int N = 5000;
+    constexpr int k = 5;
+    Record *records = generateRecords(N, k, 1337);
+
+    const int * before = getValueArray(records, N, k);
+
+    auto [rowComparisons, columnComparisons] = heapsort.sort(records, N, k);
+
+    const int * after = getValueArray(records, N, k);
+
+    EXPECT_LE(columnComparisons, N * k);
+
+    EXPECT_TRUE(isSorted(records, N));
+    EXPECT_TRUE(validOVC(records, N, k));
+
+    for (int i = 0; i < pow(10, k); i++) {
+        EXPECT_EQ(before[i], after[i]);
+    }
+    delete[] before;
+    delete[] after;
+    delete[] records;
+}

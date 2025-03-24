@@ -15,25 +15,18 @@ Stats HeapsortOVC::sort(Record *records, int length, int keyLength) {
     int left = length  / 2;
 
     Record r;
-    Record results[length];
+    auto * results = new Record[length];
     bool leftSibling = false;
     uint32_t ovcSibling = OVC_MINUS_INFINITY;
     int siblingWinner, siblingLooser;
     int counter = 0;
-    while (records[0].ovc != OVC_MINUS_INFINITY) {
-        for (int i = 0; i < length; i++) {
-            std::cout << records[i].key << ": ";
-            std::cout << "(" << getOffsetOVC(records[i].ovc);
-            std::cout << ", " << static_cast<char>(getValueOVC(records[i].ovc)) << "); ";
-        }
-
-        std::cout << std::endl;
-
+    while (left > 0 || records[0].ovc != OVC_MINUS_INFINITY) {
         if (left > 0) {
             left -= 1;
         } else {
             results[counter++] = records[0];
-            records[0] = {"", OVC_MINUS_INFINITY};
+            records[0].key.clear();
+            records[0].ovc = OVC_MINUS_INFINITY;
         }
         r = records[left];
         int i = left;
@@ -88,9 +81,6 @@ Stats HeapsortOVC::sort(Record *records, int length, int keyLength) {
                     r.ovc = ovc;
                 }
                 if (siblingLooser < length && ovcSibling != OVC_MINUS_INFINITY) {
-                    if (ovc != OVC_MINUS_INFINITY)
-                        records[siblingLooser].ovc = std::min(ovc, ovcSibling);
-                    else
                         records[siblingLooser].ovc = ovcSibling;
                 }
                 records[j].siblingOVC = OVC_MINUS_INFINITY;
@@ -108,11 +98,13 @@ Stats HeapsortOVC::sort(Record *records, int length, int keyLength) {
     for (int i = 0; i < length; i++) {
         records[i] = results[i];
     }
+    delete [] results;
 
     return stats;
 }
 
-HeapsortOVCLessThanResult HeapsortOVC::lessThan(Record &left, Record &right, int keyLength) {
+HeapsortOVCLessThanResult HeapsortOVC::lessThan(const Record &left, const Record &right, const int keyLength) {
+    stats.rowComparisons++;
     if (left.ovc > right.ovc) {
         return {true, OVC_MINUS_INFINITY};
     }
@@ -121,6 +113,7 @@ HeapsortOVCLessThanResult HeapsortOVC::lessThan(Record &left, Record &right, int
     }
     int offset = getOffsetOVC(left.ovc) + 1;
     while (offset < keyLength) {
+        stats.columnComparisons++;
         if (left.key[offset] != right.key[offset]) {
             break;
         }

@@ -27,7 +27,7 @@ static Record* generateRecords(std::string* keys, int length, uint32_t ovc = OVC
     return records;
 }
 
-static Record* generateRecords(unsigned int n, unsigned int keyLength, unsigned int seed, uint32_t ovc = OVC_MINUS_INFINITY, uint32_t aovc = AOVC_MINUS_INFINITY) {
+static Record* generateRecords(unsigned int n, unsigned int keyLength, unsigned int seed, uint32_t ovc = OVC_PLUS_INFINITY, uint32_t aovc = AOVC_MINUS_INFINITY) {
     srand(seed);
     auto * records = new Record[n];
     for (int i = 0; i < n; i++) {
