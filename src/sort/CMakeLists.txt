@@ -6,6 +6,7 @@ add_library(
         InsertionSortOVC.cpp
         InsertionSortAOVC.cpp
         Mergesort.cpp
+        MergesortOVC.cpp
         Quicksort.cpp
         QuicksortOVC.cpp
         QuicksortAOVC.cpp

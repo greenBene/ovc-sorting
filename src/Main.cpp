@@ -1,6 +1,7 @@
 #include <HeapsortOVC.h>
 #include <iostream>
 #include <Mergesort.h>
+#include <MergesortOVC.h>
 #include <ostream>
 #include <Quicksort.h>
 #include <QuicksortAOVC.h>
@@ -9,7 +10,7 @@
 
 int main(int argc, char *argv[]) {
 
-    Mergesort mergesort;
+    MergesortOVC mergesort;
 
     // std::string keys[] = {"594", "870", "809", "273", "510", "256", "383", "827"};
     // Record * records = generateRecords(keys, 8);
