@@ -12,24 +12,20 @@ int main(int argc, char *argv[]) {
 
     MergesortOVC mergesort;
 
-    // std::string keys[] = {"594", "870", "809", "273", "510", "256", "383", "827"};
-    // Record * records = generateRecords(keys, 8);
 
-    int N = 7;
+    int N = 100000;
     int k = 3;
     Record * records = generateRecords(N, k, 1338);
 
-    for (int i = 0; i < N; i++) {
-        std::cout << records[i].key << " ";
-    }
-    std::cout << std::endl;
+    auto [rowComparisonsM, columnComparisonsM] = mergesort.sort(records, N, k);
 
+    std::cout << "MergesortOVC: RowCmp: " << rowComparisonsM << ", ColCmp: " << columnComparisonsM << std::endl;
 
-    mergesort.sort(records, N, k);
+    records = generateRecords(N, k, 1338);
 
-    for (int i = 0; i<N; i++) std::cout << records[i].key << " ";
-    std::cout << std::endl;
+    QuicksortAOVC quicksort_aovc;
+    auto [rowComparisonsQ, columnComparisonsQ] = quicksort_aovc.sort(records, N, k, 1);
 
-    std::cout << "DONE";
+    std::cout << "QuicksortOVC: RowCmp: " << rowComparisonsQ << ", ColCmp: " << columnComparisonsQ  << std::endl;
 }
 

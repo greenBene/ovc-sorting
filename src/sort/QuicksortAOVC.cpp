@@ -14,7 +14,6 @@ Stats QuicksortAOVC::sort(Record* records, int length, int keyLength, int M) {
   stats = getNewStats();
   InsertionSortAOVC insertionSort;
   std::stack<Limits> stack;
-  int left, right;
 
   auto *lowest = new Record[length];    int lowestCounter = 0;
   auto *lower = new Record[length];     int lowerCounter = 0;
@@ -25,10 +24,8 @@ Stats QuicksortAOVC::sort(Record* records, int length, int keyLength, int M) {
   stack.push(Limits(0, length));
 
   while (!stack.empty()) {
-    auto [t_left, t_right] = stack.top();
+    auto [left, right] = stack.top();
     stack.pop();
-    left = t_left;
-    right = t_right;
 
     lowestCounter = 0;
     lowerCounter = 0;
