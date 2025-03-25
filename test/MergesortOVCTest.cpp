@@ -43,6 +43,7 @@ TEST(MergesortOVCTest, ManyEven) {
     for (int i = 0; i < pow(10, k); i++) {
         EXPECT_EQ(before[i], after[i]);
     }
+    EXPECT_TRUE(validOVC(records, N, k));
 }
 
 TEST(MergesortOVCTest, ManyUneven) {
@@ -61,4 +62,5 @@ TEST(MergesortOVCTest, ManyUneven) {
     for (int i = 0; i < pow(10, k); i++) {
         EXPECT_EQ(before[i], after[i]);
     }
+    EXPECT_TRUE(validOVC(records, N, k));
 }
