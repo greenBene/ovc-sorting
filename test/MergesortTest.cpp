@@ -45,22 +45,22 @@ TEST(MergesortTest, ManyEven) {
     delete[] after;
 }
 
-// TEST(MergesortTest, ManyEven) {
-//     Mergesort mergesort;
-//     constexpr int N = 1003;
-//     constexpr int k = 5;
-//     Record *records = generateRecords(N, k, 1336);
-//
-//     const int * before = getValueArray(records, N, k);
-//     mergesort.sort(records, N, k);
-//     const int * after = getValueArray(records, N, k);
-//
-//     EXPECT_TRUE(isSorted(records, N));
-//     for (int i = 0; i < pow(10, k); i++) {
-//         EXPECT_EQ(before[i], after[i]);
-//     }
-//
-//     delete [] records;
-//     delete[] before;
-//     delete[] after;
-// }
+TEST(MergesortTest, ManyUnEven) {
+    Mergesort mergesort;
+    constexpr int N = 1001;
+    constexpr int k = 5;
+    Record *records = generateRecords(N, k, 1336);
+
+    const int * before = getValueArray(records, N, k);
+    mergesort.sort(records, N, k);
+    const int * after = getValueArray(records, N, k);
+
+    EXPECT_TRUE(isSorted(records, N));
+    for (int i = 0; i < pow(10, k); i++) {
+        EXPECT_EQ(before[i], after[i]);
+    }
+
+    delete [] records;
+    delete[] before;
+    delete[] after;
+}

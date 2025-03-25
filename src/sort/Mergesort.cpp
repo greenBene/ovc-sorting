@@ -6,41 +6,44 @@
 
 #include <iostream>
 
-Stats Mergesort::sort(Record *records, int length, int keyLength) {
-    stats = getNewStats();
+Stats Mergesort::sort(Record *records, const int length, const int keyLength) {
+    this->stats = getNewStats();
+    this->length = length;
+    this->keyLength = keyLength;
+    this->tree = new int[length];
 
-    auto * tree = new int[length];
-    for (int i = 0; i < length; i++) tree[i] = -1;
+    for (int i = 0; i < length; i++)
+        tree[i] = -1;
 
     auto * results = new Record[length];
     int counter = 0;
 
     // Build Tree of Losers
-    for (int i = length - 1; i >= length / 2; i--) {
-        const int left = (i * 2) % length;
-        const int right = (left + 1) % length;
-
-        if (lessThan(records[left], records[right], keyLength)) {
-            tree[i] = right;
-            insertWinner(records, tree, i/2, left, keyLength);
-        } else {
-            tree[i] = left;
-            insertWinner(records, tree, i/2, right, keyLength);
-        }
+    if (length%2==1) {
+        tree[length/2] = 0;
     }
 
+    for (int i = (length%2==1?1:0); i < length; i+=2) {
+        const int left = i;
+        const int right = i + 1;
+        const int treeIndex = (i + length)/2;
 
-    // --> BUG STARTS ABOUT HERE
+        if (lessThan(records[left], records[right])) {
+            tree[treeIndex] = right;
+            insertWinner(records, tree, treeIndex/2, left);
+        } else {
+            tree[treeIndex] = left;
+            insertWinner(records, tree, treeIndex/2, right);
+        }
+    }
 
     // Remove top element while tree not empty
     while (tree[0] >= 0) {
         const int recordIndex = tree[0];
         results[counter++] = records[recordIndex];
         tree[0] = -1;
-
         const int treeIndex = (recordIndex + length) / 2;
-
-        insertWinner(records, tree, treeIndex, -2, keyLength);
+        insertWinner(records, tree, treeIndex, -2);
     }
 
     for (int i = 0; i < length; i++)
@@ -51,15 +54,14 @@ Stats Mergesort::sort(Record *records, int length, int keyLength) {
     return stats;
 }
 
-void Mergesort::insertWinner(const Record * records, int * tree, int treeIndex, int recordIndex, int keyLength) {
+void Mergesort::insertWinner(const Record * records, int * tree, int treeIndex, int recordIndex) {
     while (treeIndex > 0) {
         if (tree[treeIndex] == -1) {
             tree[treeIndex] = recordIndex;
             return;
         }
 
-
-        if (tree[treeIndex] != -2 && (recordIndex == -2 || lessThan(records[tree[treeIndex]], records[recordIndex], keyLength))) {
+        if (tree[treeIndex] != -2 && (recordIndex == -2 || lessThan(records[tree[treeIndex]], records[recordIndex]))) {
             const int temp = tree[treeIndex];
             tree[treeIndex] = recordIndex;
             recordIndex = temp;
@@ -69,7 +71,7 @@ void Mergesort::insertWinner(const Record * records, int * tree, int treeIndex, 
     tree[0] = recordIndex;
 }
 
-bool Mergesort::lessThan(const Record &left, const Record &right, int keyLength) {
+bool Mergesort::lessThan(const Record &left, const Record &right) {
     stats.rowComparisons += 1;
     for (int i = 0; i < keyLength; i++) {
         stats.columnComparisons += 1;

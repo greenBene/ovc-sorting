@@ -73,11 +73,10 @@ TEST(QuicksortAOVCTest, ManyWithFixedAOVC) {
 
     EXPECT_EQ(7666, stats.rowComparisons);
     EXPECT_EQ(3302, stats.columnComparisons);
-    quicksort.updateToPositiveAOVC(records, N, k, stats);
+    QuicksortAOVC::updateToPositiveAOVC(records, N, k, stats);
 
     EXPECT_TRUE(validPositiveAOVC(records, N, k));
     EXPECT_EQ(8665, stats.rowComparisons);
     EXPECT_EQ(6604, stats.columnComparisons);
     EXPECT_LE(stats.columnComparisons, 2 * N * k);
-
 }
