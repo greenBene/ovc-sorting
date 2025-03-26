@@ -17,10 +17,7 @@
 #include <QuicksortOVC.h>
 #include <SortAlgorithm.h>
 
-
 namespace po = boost::program_options;
-
-
 
 struct Result {
     Record * records;
@@ -34,7 +31,8 @@ Result readKeyFile(const std::string &path) {
         std::string line;
 
         while (getline(file, line)) {
-            keys.push_back(line);
+            if (!line.empty())
+                keys.push_back(line);
         }
 
         const int k = keys[0].length();
@@ -63,11 +61,11 @@ static bool isSorted(const Record * records, const int N) {
     return true;
 }
 
-void benchmark(SortAlgorithm &alg, Record * records, const int N, const int k) {
+void benchmark(SortAlgorithm &alg, Record * records, const int N, const int k, const int M, const std::string &filePath) {
     const auto start = std::chrono::system_clock::now();
-    auto [rowComparisons, columnComparisons] = alg.sort(records, N, k);
+    auto [rowComparisons, columnComparisons] = alg.sort(records, N, k, M);
     const auto stop = std::chrono::system_clock::now();
-    const auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+    const auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
 
     if (!isSorted(records, N)) {
         std::cerr << "Given data was not sorted successfully" << std::endl;
@@ -76,11 +74,14 @@ void benchmark(SortAlgorithm &alg, Record * records, const int N, const int k) {
 
     std::cout <<
         alg.name() << ", " <<
+        M << ", " <<
+        filePath << ", " <<
         N << ", " <<
         k << ", " <<
         rowComparisons << ", " <<
         columnComparisons << ", " <<
-        duration << std::endl;
+        duration <<
+        std::endl;
 }
 
 
@@ -88,7 +89,7 @@ int main(int argc, char *argv[]) {
     try {
         po::options_description desc(
             "Benchmarks the selected algorithm using the given input file.\n"
-            "Returns the benchmark results as \"[ALG], [N], [k], [rowCmp], [colCmp], [timeInNS]\"\n"
+            "Returns the benchmark results as \"[ALG], [N], [k], [rowCmp], [colCmp], [timeInMS]\"\n"
             "\nAllowed options:"
             );
         desc.add_options()
@@ -98,6 +99,7 @@ int main(int argc, char *argv[]) {
                 "Available: heapsort, heapsortovc, insertionsort, "
                 "insertionsortovc, mergesort, mergesortovc, "
                 "quicksort, quicksortOVC, quicksortAOVC")
+            ("M,m", po::value<int>()->default_value(0), "Value to switch to alternative algorithm, if supported. Otherwise ignored ")
             ("input,I", po::value<std::string>()->required(), "File to sort")
         ;
 
@@ -112,7 +114,10 @@ int main(int argc, char *argv[]) {
 
         notify(vm);
 
-        auto [records, N, k] = readKeyFile(vm["input"].as<std::string>());
+        auto filePath = vm["input"].as<std::string>();
+        auto M = vm["M"].as<int>();
+
+        auto [records, N, k] = readKeyFile(filePath);
         if (records == nullptr) {
             std::cerr << "Invalid Input File";
             return -1;
@@ -123,31 +128,31 @@ int main(int argc, char *argv[]) {
 
             if (algorithm == "heapsort") {
                 Heapsort heapsort;
-                benchmark(heapsort, records, N, k);
+                benchmark(heapsort, records, N, k, M, filePath);
             } else if (algorithm == "heapsortovc") {
                 HeapsortOVC heapsortOvc;
-                benchmark(heapsortOvc, records, N, k);
+                benchmark(heapsortOvc, records, N, k, M, filePath);
             } else if (algorithm == "insertionsort") {
                 InsertionSort insertionSort;
-                benchmark(insertionSort, records, N, k);
+                benchmark(insertionSort, records, N, k, M, filePath);
             } else if (algorithm == "insertionsortovc") {
                 InsertionSortOVC insertionSortOvc;
-                benchmark(insertionSortOvc, records, N, k);
+                benchmark(insertionSortOvc, records, N, k, M, filePath);
             } else if (algorithm == "mergesort") {
                 Mergesort mergesort;
-                benchmark(mergesort, records, N, k);
+                benchmark(mergesort, records, N, k, M, filePath);
             } else if (algorithm == "mergesortovc") {
                 MergesortOVC mergesortOvc;
-                benchmark(mergesortOvc, records, N, k);
+                benchmark(mergesortOvc, records, N, k, M, filePath);
             } else if (algorithm == "quicksort") {
                 Quicksort quicksort;
-                benchmark(quicksort, records, N, k);
+                benchmark(quicksort, records, N, k, M, filePath);
             } else if (algorithm == "quicksortovc") {
                 QuicksortOVC quicksortOvc;
-                benchmark(quicksortOvc, records, N, k);
+                benchmark(quicksortOvc, records, N, k, M, filePath);
             } else if (algorithm == "quicksortaovc") {
                 QuicksortAOVC quicksortAovc;
-                benchmark(quicksortAovc, records, N, k);
+                benchmark(quicksortAovc, records, N, k, M, filePath);
             } else {
                 std::cout << "Algorithm not implemented: " << algorithm << std::endl;
             }
