@@ -10,7 +10,7 @@ TEST(MergesortTest, SanityCheck) {
 
     std::string keys[] = {"959", "688", "131", "135", "746", "740", "214", "057"};
     Record * records = generateRecords(keys, N);
-    auto [rowComparisons, columnComparisons] = mergesort.sort(records, N, k);
+    auto [rowComparisons, columnComparisons, ovcDecision] = mergesort.sort(records, N, k);
 
     EXPECT_EQ("057", records[0].key);
     EXPECT_EQ("131", records[1].key);

@@ -10,7 +10,7 @@ TEST(QuicksortAOVCTest, SanityCheck) {
     std::string keys[] = {"bbb", "aab", "abb", "aaa"};
     Record * records = generateRecords(keys, 4);
 
-    auto [rowComparisons, columnComparisons] = quicksort.sort(records, 4, 3, 1);
+    auto [rowComparisons, columnComparisons, ovcDecision] = quicksort.sort(records, 4, 3, 1);
 
     EXPECT_EQ("aaa", records[0].key);
     EXPECT_EQ("aab", records[1].key);
@@ -26,7 +26,7 @@ TEST(QuicksortAOVCTest, Many) {
     Record *records = generateRecords(N, k, 1337);
 
     const int * before = getValueArray(records, N, k);
-    auto [rowComparisons, columnComparisons] = quicksort.sort(records, N, k, 1);
+    auto [rowComparisons, columnComparisons, ovcDecision] = quicksort.sort(records, N, k, 1);
     const int * after = getValueArray(records, N, k);
 
     EXPECT_TRUE(isSorted(records, N));
@@ -44,7 +44,7 @@ TEST(QuicksortAOVCTest, ManyWithInsertionSort) {
     Record *records = generateRecords(N, k, 1337);
 
     const int * before = getValueArray(records, N, k);
-    auto [rowComparisons, columnComparisons] = quicksort.sort(records, N, k, 9);
+    auto [rowComparisons, columnComparisons, ovcDecision] = quicksort.sort(records, N, k, 9);
     const int * after = getValueArray(records, N, k);
 
     EXPECT_TRUE(isSorted(records, N));

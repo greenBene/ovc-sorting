@@ -10,7 +10,7 @@ TEST(QuicksortOVCTest, SanityCheck) {
     std::string keys[] = {"bbb", "aab", "abb", "aaa"};
     Record * records = generateRecords(keys, 4);
 
-    auto [rowComparisons, columnComparisons] = quicksort.sort(records, 4, 3, 1);
+    auto [rowComparisons, columnComparisons, ovcDecision] = quicksort.sort(records, 4, 3, 1);
 
     EXPECT_EQ("aaa", records[0].key);
     EXPECT_EQ("aab", records[1].key);
@@ -27,7 +27,7 @@ TEST(QuicksortOVCTest, ThesisExampleWithoutInsertionSort) {
 
     std::string keys[] = {"591", "333", "764", "670", "610", "934", "496", "564", "408"};
     Record *records = generateRecords(keys, 9);
-    auto [rowComparisons, columnComparisons] = quicksort.sort(records, 9, 3, 1);
+    auto [rowComparisons, columnComparisons, ovcDecision] = quicksort.sort(records, 9, 3, 1);
 
     EXPECT_EQ("333", records[0].key);
     EXPECT_EQ("408", records[1].key);
@@ -49,7 +49,7 @@ TEST(QuicksortOVCTest, ThesisExampleWithInsertionSort) {
 
     std::string keys[] = {"591", "333", "764", "670", "610", "934", "496", "564", "408"};
     Record *records = generateRecords(keys, 9);
-    auto [rowComparisons, columnComparisons] = quicksort.sort(records, 9, 3, 4);
+    auto [rowComparisons, columnComparisons, ovcDecision] = quicksort.sort(records, 9, 3, 4);
 
     EXPECT_EQ("333", records[0].key);
     EXPECT_EQ("408", records[1].key);

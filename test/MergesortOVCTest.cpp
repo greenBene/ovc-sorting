@@ -35,7 +35,7 @@ TEST(MergesortOVCTest, ManyEven) {
     Record *records = generateRecords(N, k, 1337);
 
     const int * before = getValueArray(records, N, k);
-    auto [rowComparisons, columnComparisons] = mergesort.sort(records, N, k);
+    auto [rowComparisons, columnComparisons, ovcDecision] = mergesort.sort(records, N, k);
     const int * after = getValueArray(records, N, k);
 
     EXPECT_TRUE(isSorted(records, N));
@@ -54,7 +54,7 @@ TEST(MergesortOVCTest, ManyUneven) {
     Record *records = generateRecords(N, k, 1338);
 
     const int * before = getValueArray(records, N, k);
-    auto [rowComparisons, columnComparisons] = mergesort.sort(records, N, k);
+    auto [rowComparisons, columnComparisons, ovcDecision] = mergesort.sort(records, N, k);
     const int * after = getValueArray(records, N, k);
 
     EXPECT_TRUE(isSorted(records, N));

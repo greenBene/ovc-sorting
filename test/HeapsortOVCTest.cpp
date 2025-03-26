@@ -26,7 +26,7 @@ TEST(HeapsortOVCTest, Many) {
 
     const int * before = getValueArray(records, N, k);
 
-    auto [rowComparisons, columnComparisons] = heapsort.sort(records, N, k);
+    auto [rowComparisons, columnComparisons, ovcDecision] = heapsort.sort(records, N, k);
 
     const int * after = getValueArray(records, N, k);
 
