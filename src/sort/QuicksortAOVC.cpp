@@ -10,7 +10,11 @@ struct Limits {
   int left, right;
 };
 
-Stats QuicksortAOVC::sort(Record* records, int length, int keyLength, int M) {
+Stats QuicksortAOVC::sort(Record *records, const int length, const int keyLength) {
+  return this->sort(records, length, keyLength, 0);
+}
+
+Stats QuicksortAOVC::sort(Record* records, const int length, const int keyLength, int M) {
   stats = getNewStats();
   InsertionSortAOVC insertionSort;
   std::stack<Limits> stack;
@@ -104,6 +108,10 @@ Stats QuicksortAOVC::sort(Record* records, int length, int keyLength, int M) {
   delete [] greatest;
 
   return stats;
+}
+
+std::string QuicksortAOVC::name() {
+  return "QuicksortAOVC";
 }
 
 void QuicksortAOVC::move(Record* records, const Record * list, int &counter, const int length) {

@@ -11,6 +11,10 @@ struct Limits {
     int left, right;
 };
 
+Stats QuicksortOVC::sort(Record *records, const int length, const int keyLength) {
+    return this->sort(records, length, keyLength, 0);
+}
+
 Stats QuicksortOVC::sort(Record* records, const int length, const int keyLength, const int M) {
     stats = getNewStats();
     InsertionSortOVC insertionSort;
@@ -81,6 +85,10 @@ Stats QuicksortOVC::sort(Record* records, const int length, const int keyLength,
 
     delete[] temp;
     return stats;
+}
+
+std::string QuicksortOVC::name() {
+    return "QuicksortOVC";
 }
 
 QuicksortOVCLessThanResult QuicksortOVC::lessThan(const Record &left, const Record &right, int keyLength) {

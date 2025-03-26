@@ -1,9 +1,16 @@
 #include "InsertionSort.h"
 #include "Stats.h"
 
+
+
+
 Stats InsertionSort::sort(Record records[], const int length, const int keyLength) {
   Stats stats = getNewStats();
   return sort(records, length, keyLength, stats);
+}
+
+Stats InsertionSort::sort(Record *records, int length, int keyLength, int M) {
+  return this->sort(records, length, keyLength);
 }
 
 Stats InsertionSort::sort(Record records[], const int length, const int keyLength, const Stats &s) {
@@ -21,6 +28,10 @@ Stats InsertionSort::sort(Record records[], const int length, const int keyLengt
   }
 
   return stats;
+}
+
+std::string InsertionSort::name() {
+  return "InsertionSort";
 }
 
 bool InsertionSort::lessThan(const Record &left, const Record &right, const int keyLength) {

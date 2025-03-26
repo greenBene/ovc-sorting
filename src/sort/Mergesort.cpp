@@ -54,6 +54,14 @@ Stats Mergesort::sort(Record *records, const int length, const int keyLength) {
     return stats;
 }
 
+Stats Mergesort::sort(Record *records, const int length, const int keyLength, int M) {
+    return this->sort(records, length, keyLength);
+}
+
+std::string Mergesort::name() {
+    return "Mergesort";
+}
+
 void Mergesort::insertWinner(const Record * records, int * tree, int treeIndex, int recordIndex) {
     while (treeIndex > 0) {
         if (tree[treeIndex] == -1) {

@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "Record.h"
+#include "Stats.h"
 
 
 Stats Heapsort::sort(Record *records, const int length, const int keyLength) {
@@ -42,6 +43,14 @@ Stats Heapsort::sort(Record *records, const int length, const int keyLength) {
     records[1] = temp;
 
     return stats;
+}
+
+Stats Heapsort::sort(Record *records, int length, int keyLength, int M) {
+    return this->sort(records,length, keyLength);
+}
+
+std::string Heapsort::name() {
+    return "Heapsort";
 }
 
 bool Heapsort::lessThan(const Record &left, const Record &right, int keyLength) {

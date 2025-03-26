@@ -16,7 +16,7 @@ struct Record {
 };
 
 
-static Record* generateRecords(std::string* keys, int length, uint32_t ovc = OVC_MINUS_INFINITY, uint32_t aovc = AOVC_MINUS_INFINITY, uint32_t ovcSibling = OVC_MINUS_INFINITY) {
+static Record* generateRecords(std::string* keys, int length, uint32_t ovc = OVC_PLUS_INFINITY, uint32_t aovc = AOVC_MINUS_INFINITY, uint32_t ovcSibling = OVC_MINUS_INFINITY) {
     Record* records = new Record[length];
     for (int i = 0; i < length; i++) {
         records[i].key = keys[i];
@@ -27,7 +27,7 @@ static Record* generateRecords(std::string* keys, int length, uint32_t ovc = OVC
     return records;
 }
 
-static Record* generateRecords(std::vector<std::string> keys, int length, uint32_t ovc = OVC_MINUS_INFINITY, uint32_t aovc = AOVC_MINUS_INFINITY, uint32_t ovcSibling = OVC_MINUS_INFINITY) {
+static Record* generateRecords(std::vector<std::string> keys, int length, uint32_t ovc = OVC_PLUS_INFINITY, uint32_t aovc = AOVC_MINUS_INFINITY, uint32_t ovcSibling = OVC_MINUS_INFINITY) {
     Record* records = new Record[length];
     for (int i = 0; i < length; i++) {
         records[i].key = keys[i];

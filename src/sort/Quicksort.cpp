@@ -8,6 +8,10 @@ struct Limits {
     int left, right;
 };
 
+Stats Quicksort::sort(Record *records, int length, int keyLength) {
+    return this->sort(records, length, keyLength, 0);
+}
+
 Stats Quicksort::sort(Record *records, const int length, const int keyLength, const int M) {
     stats = getNewStats();
 
@@ -65,6 +69,10 @@ Stats Quicksort::sort(Record *records, const int length, const int keyLength, co
     }
 
     return stats;
+}
+
+std::string Quicksort::name() {
+    return "Quicksort";
 }
 
 bool Quicksort::swap(Record* records, const int a, const int b) {

@@ -2,12 +2,18 @@
 
 #include "Stats.h"
 #include "Record.h"
+#include "SortAlgorithm.h"
 
-class QuicksortAOVC {
+class QuicksortAOVC : public SortAlgorithm {
     Stats stats;
 
   public:
-    Stats sort(Record* records, int length, int keyLength, int M);
+    Stats sort(Record* records, int length, int keyLength) override;
+    Stats sort(Record* records, int length, int keyLength, int M) override;
+
+    std::string name() override;
+
+
     static void updateToPositiveAOVC(Record * records, const unsigned int length, const unsigned int keyLength, Stats & stats);
 
   private:

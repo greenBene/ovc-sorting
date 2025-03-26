@@ -53,6 +53,14 @@ Stats MergesortOVC::sort(Record *records, const int length, const int keyLength)
     return stats;
 }
 
+Stats MergesortOVC::sort(Record *records, int length, int keyLength, int M) {
+    return this->sort(records, length, keyLength);
+}
+
+std::string MergesortOVC::name() {
+    return "MergesortOVC";
+}
+
 void MergesortOVC::insertWinner(Record * records, int * tree, int treeIndex, int recordIndex) {
     while (treeIndex > 0) {
         if (tree[treeIndex] == -1) {

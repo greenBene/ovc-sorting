@@ -2,11 +2,20 @@
 #include <ostream>
 #include <fstream>
 #include <string>
+#include <chrono>
+#include <Heapsort.h>
+#include <HeapsortOVC.h>
+#include <InsertionSort.h>
+#include <InsertionSortOVC.h>
+#include <Mergesort.h>
+#include <MergesortOVC.h>
+#include <Quicksort.h>
 
 #include <boost/program_options.hpp>
 
 #include <QuicksortAOVC.h>
 #include <QuicksortOVC.h>
+#include <SortAlgorithm.h>
 
 
 namespace po = boost::program_options;
@@ -45,13 +54,27 @@ Result readKeyFile(const std::string &path) {
     return {nullptr, 0, 0};
 }
 
+void benchmark(SortAlgorithm &alg, Record * records, const int N, const int k) {
+    const auto start = std::chrono::system_clock::now();
+    auto [rowComparisons, columnComparisons] = alg.sort(records, N, k);
+    const auto stop = std::chrono::system_clock::now();
+    const auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+    std::cout <<
+        alg.name() << ", " <<
+        N << ", " <<
+        k << ", " <<
+        rowComparisons << ", " <<
+        columnComparisons << ", " <<
+        duration << std::endl;
+}
+
 
 int main(int argc, char *argv[]) {
     try {
         po::options_description desc("Allowed options");
         desc.add_options()
             ("help", "Produce help message")
-            ("algorithm", po::value<std::vector<std::string>>()->multitoken()->required(),
+            ("algorithm", po::value<std::string>()->required(),
                 "Algorithm used to sort data. \n"
                 "Available: heapsort, heapsortovc, insertionsort, "
                 "insertionsortovc, mergesort, mergesortovc, "
@@ -74,35 +97,40 @@ int main(int argc, char *argv[]) {
             return -1;
         }
 
-        std::cout << "Input -- N: " << N << ", k: " << k << std::endl;
-
-        for (int i = 0; i < N; i++) {
-            std::cout << records[i].key << " ";
-        }
-        std::cout << std::endl;
-
         if (vm.contains("algorithm")) {
-            auto algorithms = vm["algorithm"].as<std::vector<std::string>>();
+            auto algorithm = vm["algorithm"].as<std::string>();
 
-            for (auto algorithm : algorithms) {
-                if (algorithm == "quicksort") {
-
-                    std::cout << "QUICKSORT" << std::endl;
-                } else if (algorithm == "quicksortovc") {
-                    QuicksortOVC quicksortOvc;
-                    quicksortOvc.sort(records, N, k, 1);
-                } else {
-                    std::cout << "Algorithm not implemented: " << algorithm << std::endl;
-                }
+            if (algorithm == "heapsort") {
+                Heapsort heapsort;
+                benchmark(heapsort, records, N, k);
+            } else if (algorithm == "heapsortovc") {
+                HeapsortOVC heapsortOvc;
+                benchmark(heapsortOvc, records, N, k);
+            } else if (algorithm == "insertionsort") {
+                InsertionSort insertionSort;
+                benchmark(insertionSort, records, N, k);
+            } else if (algorithm == "insertionsortovc") {
+                InsertionSortOVC insertionSortOvc;
+                benchmark(insertionSortOvc, records, N, k);
+            } else if (algorithm == "mergesort") {
+                Mergesort mergesort;
+                benchmark(mergesort, records, N, k);
+            } else if (algorithm == "mergesortovc") {
+                MergesortOVC mergesortOvc;
+                benchmark(mergesortOvc, records, N, k);
+            } else if (algorithm == "quicksort") {
+                Quicksort quicksort;
+                benchmark(quicksort, records, N, k);
+            } else if (algorithm == "quicksortovc") {
+                QuicksortOVC quicksortOvc;
+                benchmark(quicksortOvc, records, N, k);
+            } else if (algorithm == "quicksortaovc") {
+                QuicksortAOVC quicksortAovc;
+                benchmark(quicksortAovc, records, N, k);
+            } else {
+                std::cout << "Algorithm not implemented: " << algorithm << std::endl;
             }
         }
-
-        for (int i = 0; i < N; i++) {
-            std::cout << records[i].key << " ";
-        }
-        std::cout << std::endl;
-
-        std::cout << "Hello World" << std::endl;
     } catch (std::exception& e ) {
         std::cerr << "error:" << e.what() << std::endl;
     } catch (...) {

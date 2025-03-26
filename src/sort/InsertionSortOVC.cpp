@@ -10,6 +10,10 @@ Stats InsertionSortOVC::sort(Record* records, const int length, const int keyLen
   return sort(records, 0, length, keyLength, getNewStats());
 }
 
+Stats InsertionSortOVC::sort(Record *records, const int length, const int keyLength, int M) {
+  return sort(records, 0, length, keyLength, getNewStats());
+}
+
 
 Stats InsertionSortOVC::sort(Record* records, const int left, const int right, const int keyLength, Stats s) {
   stats.columnComparisons = s.columnComparisons;
@@ -26,6 +30,10 @@ Stats InsertionSortOVC::sort(Record* records, const int left, const int right, c
   }
 
   return stats;
+}
+
+std::string InsertionSortOVC::name() {
+  return "InsertionSortOVC";
 }
 
 bool InsertionSortOVC::lessThan(Record &left, Record &right, const int keyLength){

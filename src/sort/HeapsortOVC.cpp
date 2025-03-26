@@ -103,6 +103,14 @@ Stats HeapsortOVC::sort(Record *records, int length, int keyLength) {
     return stats;
 }
 
+Stats HeapsortOVC::sort(Record *records, const int length, const int keyLength, int M) {
+    return this->sort(records, length, keyLength);
+}
+
+std::string HeapsortOVC::name() {
+    return "HeapsortOVC";
+}
+
 HeapsortOVCLessThanResult HeapsortOVC::lessThan(const Record &left, const Record &right, const int keyLength) {
     stats.rowComparisons++;
     if (left.ovc > right.ovc) {
