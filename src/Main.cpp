@@ -66,7 +66,7 @@ void benchmark(SortAlgorithm &alg, Record * records, const int N, const int k, c
     const auto start = std::chrono::system_clock::now();
     auto [rowComparisons, columnComparisons, ovcDecision] = alg.sort(records, N, k, M);
     const auto stop = std::chrono::system_clock::now();
-    const auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
+    const auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start).count();
 
     if (!isSorted(records, N)) {
         std::cerr << "Given data was not sorted successfully" << std::endl;
@@ -91,7 +91,7 @@ int main(int argc, char *argv[]) {
     try {
         po::options_description desc(
             "Benchmarks the selected algorithm using the given input file.\n"
-            "Returns the benchmark results as \"[ALG], [N], [k], [rowCmp], [colCmp], [timeInMS]\"\n"
+            "Returns the benchmark results as \"[ALG], [M], [INPUT], [N], [k], [rowCmp], [colCmp], [timeInUS]\"\n"
             "\nAllowed options:"
             );
         desc.add_options()
