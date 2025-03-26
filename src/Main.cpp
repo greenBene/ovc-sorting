@@ -100,7 +100,7 @@ int main(int argc, char *argv[]) {
                 "Algorithm used to sort data. \n"
                 "Available: heapsort, heapsortovc, insertionsort, "
                 "insertionsortovc, mergesort, mergesortovc, "
-                "quicksort, quicksortOVC, quicksortAOVC")
+                "quicksort, quicksortovc, quicksortaovc, quicksortaovc+uc")
             ("M,m", po::value<int>()->default_value(0), "Value to switch to alternative algorithm, if supported. Otherwise ignored ")
             ("input,I", po::value<std::string>()->required(), "File to sort")
         ;
@@ -158,7 +158,7 @@ int main(int argc, char *argv[]) {
             } else if (algorithm == "quicksortaovc") {
                 QuicksortAOVC quicksortAovc;
                 benchmark(quicksortAovc, records, N, k, M, filePath);
-            } else if (algorithm == "quicksortaovc+fix") {
+            } else if (algorithm == "quicksortaovc+uc") {
                 QuicksortAOVC quicksortAovc;
                 quicksortAovc.setFixOVC(true);
                 benchmark(quicksortAovc, records, N, k, M, filePath);
