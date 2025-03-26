@@ -107,11 +107,17 @@ Stats QuicksortAOVC::sort(Record* records, const int length, const int keyLength
   delete [] greater;
   delete [] greatest;
 
+  if (fixAOVC) updateToPositiveAOVC(records, length, keyLength, stats);
+
   return stats;
 }
 
 std::string QuicksortAOVC::name() {
   return "QuicksortAOVC";
+}
+
+void QuicksortAOVC::setFixOVC(const bool fixAOVC) {
+    this->fixAOVC = fixAOVC;
 }
 
 void QuicksortAOVC::move(Record* records, const Record * list, int &counter, const int length) {

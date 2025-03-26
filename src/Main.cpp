@@ -1,3 +1,4 @@
+#include <BaseSort.h>
 #include <iostream>
 #include <ostream>
 #include <fstream>
@@ -126,7 +127,10 @@ int main(int argc, char *argv[]) {
         if (vm.contains("algorithm")) {
             auto algorithm = vm["algorithm"].as<std::string>();
 
-            if (algorithm == "heapsort") {
+            if (algorithm == "basesort") {
+                BaseSort basesort;
+                benchmark(basesort, records, N, k, M, filePath);
+            } else if (algorithm == "heapsort") {
                 Heapsort heapsort;
                 benchmark(heapsort, records, N, k, M, filePath);
             } else if (algorithm == "heapsortovc") {
@@ -153,7 +157,12 @@ int main(int argc, char *argv[]) {
             } else if (algorithm == "quicksortaovc") {
                 QuicksortAOVC quicksortAovc;
                 benchmark(quicksortAovc, records, N, k, M, filePath);
-            } else {
+            } else if (algorithm == "quicksortaovc+fix") {
+                QuicksortAOVC quicksortAovc;
+                quicksortAovc.setFixOVC(true);
+                benchmark(quicksortAovc, records, N, k, M, filePath);
+            }
+            else {
                 std::cout << "Algorithm not implemented: " << algorithm << std::endl;
             }
         }
