@@ -115,6 +115,8 @@ Stats QuicksortAOVC::sort(Record* records, const int length, const int keyLength
 }
 
 std::string QuicksortAOVC::name() {
+  if (fixAOVC)
+    return "QuicksortAOVC+FixedAOVC";
   return "QuicksortAOVC";
 }
 
