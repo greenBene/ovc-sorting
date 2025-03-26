@@ -54,11 +54,26 @@ Result readKeyFile(const std::string &path) {
     return {nullptr, 0, 0};
 }
 
+static bool isSorted(const Record * records, const int N) {
+    for (int i = 1; i < N; i++) {
+        if (records[i-1].key > records[i].key) {
+            return false;
+        }
+    }
+    return true;
+}
+
 void benchmark(SortAlgorithm &alg, Record * records, const int N, const int k) {
     const auto start = std::chrono::system_clock::now();
     auto [rowComparisons, columnComparisons] = alg.sort(records, N, k);
     const auto stop = std::chrono::system_clock::now();
     const auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+
+    if (!isSorted(records, N)) {
+        std::cerr << "Given data was not sorted successfully" << std::endl;
+        return;
+    }
+
     std::cout <<
         alg.name() << ", " <<
         N << ", " <<
@@ -71,7 +86,11 @@ void benchmark(SortAlgorithm &alg, Record * records, const int N, const int k) {
 
 int main(int argc, char *argv[]) {
     try {
-        po::options_description desc("Allowed options");
+        po::options_description desc(
+            "Benchmarks the selected algorithm using the given input file.\n"
+            "Returns the benchmark results as \"[ALG], [N], [k], [rowCmp], [colCmp], [timeInNS]\"\n"
+            "\nAllowed options:"
+            );
         desc.add_options()
             ("help", "Produce help message")
             ("algorithm", po::value<std::string>()->required(),
@@ -84,12 +103,14 @@ int main(int argc, char *argv[]) {
 
         po::variables_map vm;
         po::store(po::parse_command_line(argc, argv, desc), vm);
-        notify(vm);
+
 
         if (vm.contains("help")) {
             std::cout << desc << std::endl;
             return 0;
         }
+
+        notify(vm);
 
         auto [records, N, k] = readKeyFile(vm["input"].as<std::string>());
         if (records == nullptr) {
