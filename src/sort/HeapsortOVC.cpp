@@ -34,6 +34,7 @@ Stats HeapsortOVC::sort(Record *records, int length, int keyLength) {
 
         while (j < length) {
             if (r.ovc > records[j].ovc && (j == length - 1 || r.ovc > records[j+1].ovc)) {
+                stats.rowComparisons++;
                 break;
             }
             if (records[j].ovc == OVC_MINUS_INFINITY && (j == length -1 || records[j+1].ovc == OVC_MINUS_INFINITY)) {
