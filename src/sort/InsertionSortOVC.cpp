@@ -17,6 +17,7 @@ Stats InsertionSortOVC::sort(Record *records, const int length, const int keyLen
 
 Stats InsertionSortOVC::sort(Record* records, const int left, const int right, const int keyLength, Stats s) {
   stats.columnComparisons = s.columnComparisons;
+  stats.rowComparisonsDecidedByOVC = s.rowComparisonsDecidedByOVC;
   stats.rowComparisons = s.rowComparisons;
 
   for (int j = right - 2; j >= left; j--) {
@@ -39,9 +40,11 @@ std::string InsertionSortOVC::name() {
 bool InsertionSortOVC::lessThan(Record &left, Record &right, const int keyLength){
   stats.rowComparisons += 1;
   if(left.ovc > right.ovc) {
+    stats.rowComparisonsDecidedByOVC++;
     return true;
   }
   if(left.ovc < right.ovc) {
+    stats.rowComparisonsDecidedByOVC++;
     return false;
   }
 

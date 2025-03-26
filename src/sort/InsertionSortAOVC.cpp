@@ -12,6 +12,7 @@
 Stats InsertionSortAOVC::sortPositive(Record* records, const int left, const int right, const int keyLength, Stats s) {
     stats.columnComparisons = s.columnComparisons;
     stats.rowComparisons = s.rowComparisons;
+    stats.rowComparisonsDecidedByOVC = s.rowComparisonsDecidedByOVC;
 
     for (int j = right - 2; j >= left; j--) {
         int i = j + 1;
@@ -29,9 +30,11 @@ Stats InsertionSortAOVC::sortPositive(Record* records, const int left, const int
 bool InsertionSortAOVC::positiveLessThan(Record &left, Record &right, const int keyLength) {
     stats.rowComparisons++;
     if (left.aovc < right.aovc) {
+        stats.rowComparisonsDecidedByOVC++;
         return true;
     }
     if (left.aovc > right.aovc) {
+        stats.rowComparisonsDecidedByOVC++;
         return false;
     }
 
@@ -60,8 +63,9 @@ bool InsertionSortAOVC::positiveLessThan(Record &left, Record &right, const int 
 Stats InsertionSortAOVC::sortNegative(Record* records, const int left, const int right, const int keyLength, Stats s) {
     stats.columnComparisons = s.columnComparisons;
     stats.rowComparisons = s.rowComparisons;
+    stats.rowComparisonsDecidedByOVC = s.rowComparisonsDecidedByOVC;
 
-    for (int j = left; j < right; j++) {
+    for (int j = left + 1; j < right; j++) {
         int i = j - 1;
         Record r = records[j];
         while (i >= left && negativeLessThan(r, records[i], keyLength)) {
@@ -78,9 +82,11 @@ Stats InsertionSortAOVC::sortNegative(Record* records, const int left, const int
 bool InsertionSortAOVC::negativeLessThan(Record &left, Record &right, const int keyLength) {
     stats.rowComparisons++;
     if (left.aovc < right.aovc) {
+        stats.rowComparisonsDecidedByOVC++;
         return true;
     }
     if (left.aovc > right.aovc) {
+        stats.rowComparisonsDecidedByOVC++;
         return false;
     }
 

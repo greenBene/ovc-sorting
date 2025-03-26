@@ -7,15 +7,19 @@
 TEST(QuicksortAOVCTest, SanityCheck) {
     QuicksortAOVC quicksort;
 
-    std::string keys[] = {"bbb", "aab", "abb", "aaa"};
+    std::string keys[] = {"bbb", "abb", "aba", "aaa"};
     Record * records = generateRecords(keys, 4);
 
     auto [rowComparisons, columnComparisons, ovcDecision] = quicksort.sort(records, 4, 3, 1);
 
     EXPECT_EQ("aaa", records[0].key);
-    EXPECT_EQ("aab", records[1].key);
+    EXPECT_EQ("aba", records[1].key);
     EXPECT_EQ("abb", records[2].key);
     EXPECT_EQ("bbb", records[3].key);
+
+    EXPECT_EQ(6, rowComparisons);
+    EXPECT_EQ(1, ovcDecision);
+    EXPECT_EQ(6, columnComparisons);
 }
 
 TEST(QuicksortAOVCTest, Many) {
@@ -34,6 +38,9 @@ TEST(QuicksortAOVCTest, Many) {
     for (int i = 0; i < pow(10, k); i++) {
         EXPECT_EQ(before[i], after[i]);
     }
+
+    EXPECT_EQ(7666, rowComparisons);
+    EXPECT_EQ(4684, ovcDecision);
 }
 
 TEST(QuicksortAOVCTest, ManyWithInsertionSort) {

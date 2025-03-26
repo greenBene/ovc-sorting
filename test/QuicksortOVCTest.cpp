@@ -40,6 +40,7 @@ TEST(QuicksortOVCTest, ThesisExampleWithoutInsertionSort) {
     EXPECT_EQ("934", records[8].key);
 
     EXPECT_EQ(20, rowComparisons);
+    EXPECT_EQ(8, ovcDecision);
     EXPECT_EQ(13, columnComparisons);
     EXPECT_TRUE(validOVC(records, 9, 3));
 }
@@ -62,6 +63,7 @@ TEST(QuicksortOVCTest, ThesisExampleWithInsertionSort) {
     EXPECT_EQ("934", records[8].key);
 
     EXPECT_EQ(17, rowComparisons);
+    EXPECT_EQ(5, ovcDecision);
     EXPECT_EQ(14, columnComparisons);
     EXPECT_TRUE(validOVC(records, 9, 3));
 }

@@ -9,13 +9,17 @@ TEST(InsertionSortAOVCTest, PostiveSortingSanityCheck) {
     InsertionSortAOVC insertionSortAovc;
 
     Record records[] = {{"bbb"}, {"abb"}, {"aab"}, {"abb"}, {"aaa"}};
-    insertionSortAovc.sortPositive(records, 0, 5, 3, getNewStats());
+    Stats stats = insertionSortAovc.sortPositive(records, 0, 5, 3, getNewStats());
 
     EXPECT_EQ("aaa", records[0].key);
     EXPECT_EQ("aab", records[1].key);
     EXPECT_EQ("abb", records[2].key);
     EXPECT_EQ("abb", records[3].key);
     EXPECT_EQ("bbb", records[4].key);
+
+    EXPECT_EQ(10, stats.rowComparisons);
+    EXPECT_EQ(5, stats.rowComparisonsDecidedByOVC);
+    EXPECT_EQ(9, stats.columnComparisons);
 }
 
 
@@ -24,17 +28,21 @@ TEST(InsertionSortAOVCTest, NegativeSortingSanityCheck) {
 
     Record records[] = {
         {"bbb", 0,  AOVC_PLUS_INFINITY},
-        {"abb", 0, AOVC_PLUS_INFINITY},
-        {"aab", 0 , AOVC_PLUS_INFINITY},
+        {"bab", 0, AOVC_PLUS_INFINITY},
+        {"abb", 0 , AOVC_PLUS_INFINITY},
         {"abb", 0 , AOVC_PLUS_INFINITY},
         {"aaa", 0 , AOVC_PLUS_INFINITY}};
-    insertionSortAovc.sortNegative(records, 0, 5, 3, getNewStats());
+    Stats stats = insertionSortAovc.sortNegative(records, 0, 5, 3, getNewStats());
 
     EXPECT_EQ("aaa", records[0].key);
-    EXPECT_EQ("aab", records[1].key);
+    EXPECT_EQ("abb", records[1].key);
     EXPECT_EQ("abb", records[2].key);
-    EXPECT_EQ("abb", records[3].key);
+    EXPECT_EQ("bab", records[3].key);
     EXPECT_EQ("bbb", records[4].key);
+
+    EXPECT_EQ(10, stats.rowComparisons);
+    EXPECT_EQ(4, stats.rowComparisonsDecidedByOVC);
+    EXPECT_EQ(8, stats.columnComparisons);
 }
 
 TEST(InsertionSortAOVCTest, PostiveSortingWorstCase) {

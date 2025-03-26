@@ -82,9 +82,11 @@ bool MergesortOVC::lessThan(Record &left, Record &right) {
     stats.rowComparisons += 1;
 
     if (left.ovc > right.ovc) {
+        stats.rowComparisonsDecidedByOVC++;
         return true;
     }
     if (left.ovc < right.ovc) {
+        stats.rowComparisonsDecidedByOVC++;
         return false;
     }
 

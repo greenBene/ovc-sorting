@@ -35,6 +35,9 @@ Stats HeapsortOVC::sort(Record *records, int length, int keyLength) {
         while (j < length) {
             if (r.ovc > records[j].ovc && (j == length - 1 || r.ovc > records[j+1].ovc)) {
                 stats.rowComparisons++;
+                if (j<length-1)
+                    stats.rowComparisons++;
+                stats.rowComparisonsDecidedByOVC++;
                 break;
             }
             if (records[j].ovc == OVC_MINUS_INFINITY && (j == length -1 || records[j+1].ovc == OVC_MINUS_INFINITY)) {
@@ -115,9 +118,11 @@ std::string HeapsortOVC::name() {
 HeapsortOVCLessThanResult HeapsortOVC::lessThan(const Record &left, const Record &right, const int keyLength) {
     stats.rowComparisons++;
     if (left.ovc > right.ovc) {
+        stats.rowComparisonsDecidedByOVC++;
         return {true, OVC_MINUS_INFINITY};
     }
     if (right.ovc > left.ovc) {
+        stats.rowComparisonsDecidedByOVC++;
         return {false, OVC_MINUS_INFINITY};
     }
     int offset = getOffsetOVC(left.ovc) + 1;

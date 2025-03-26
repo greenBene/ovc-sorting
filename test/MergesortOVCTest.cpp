@@ -24,6 +24,7 @@ TEST(MergesortOVCTest, SanityCheck) {
     EXPECT_EQ("870", records[7].key);
 
     EXPECT_EQ(17, stats.rowComparisons);
+    EXPECT_EQ(7, stats.rowComparisonsDecidedByOVC);
     EXPECT_EQ(11, stats.columnComparisons);
 }
 

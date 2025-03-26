@@ -94,15 +94,19 @@ std::string QuicksortOVC::name() {
 QuicksortOVCLessThanResult QuicksortOVC::lessThan(const Record &left, const Record &right, int keyLength) {
     stats.rowComparisons += 1;
     if (left.ovc > right.ovc) {
+        stats.rowComparisonsDecidedByOVC++;
         return {true, right.ovc};
     }
     if (right.ovc > left.ovc) {
+        stats.rowComparisonsDecidedByOVC++;
         return {false, left.ovc};
     }
     if (left.reverseOvc > right.reverseOvc) {
+        stats.rowComparisonsDecidedByOVC++;
         return {false, right.reverseOvc};
     }
     if (right.reverseOvc > left.reverseOvc) {
+        stats.rowComparisonsDecidedByOVC++;
         return {true, left.reverseOvc};
     }
 

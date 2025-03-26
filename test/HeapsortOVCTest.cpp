@@ -9,13 +9,17 @@ TEST(HeapsortOVCTest, SanityCheck) {
     std::string keys[] = {"bbb", "aab", "aba", "abb", "aaa"};
     Record * records = generateRecords(keys, 5, OVC_PLUS_INFINITY);
 
-    heapsort.sort(records, 5, 3);
+    Stats stats = heapsort.sort(records, 5, 3);
 
     EXPECT_EQ("aaa", records[0].key);
     EXPECT_EQ("aab", records[1].key);
     EXPECT_EQ("aba", records[2].key);
     EXPECT_EQ("abb", records[3].key);
     EXPECT_EQ("bbb", records[4].key);
+
+    EXPECT_EQ(18, stats.rowComparisons);
+    EXPECT_EQ(13, stats.rowComparisonsDecidedByOVC);
+    EXPECT_EQ(9, stats.columnComparisons);
 }
 
 TEST(HeapsortOVCTest, Many) {

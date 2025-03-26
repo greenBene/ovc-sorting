@@ -30,6 +30,7 @@ TEST(InsertionSortOVCTest, WorstCase) {
     EXPECT_EQ("aad", records[3].key);
 
     EXPECT_EQ(6, stats.rowComparisons);
+    EXPECT_EQ(3, stats.rowComparisonsDecidedByOVC);
     EXPECT_EQ(9, stats.columnComparisons);
     EXPECT_TRUE(validOVC(records, 4, 3));
 }

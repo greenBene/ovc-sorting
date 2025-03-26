@@ -43,8 +43,10 @@ Stats QuicksortAOVC::sort(Record* records, const int length, const int keyLength
     for (int i = left + 1; i < right; i++) {
       stats.rowComparisons++;
       if (records[i].aovc < pivot.aovc) {
+        stats.rowComparisonsDecidedByOVC++;
         lowest[lowestCounter++] = records[i];
       } else if (records[i].aovc > pivot.aovc ) {
+        stats.rowComparisonsDecidedByOVC++;
         greatest[greatestCounter++] = records[i];
       } else {
         int offset = getOffsetAOVC(records[i].aovc, keyLength) + 1;
