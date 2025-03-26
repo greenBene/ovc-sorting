@@ -64,7 +64,7 @@ static bool isSorted(const Record * records, const int N) {
 
 void benchmark(SortAlgorithm &alg, Record * records, const int N, const int k, const int M, const std::string &filePath) {
     const auto start = std::chrono::system_clock::now();
-    auto [rowComparisons, columnComparisons] = alg.sort(records, N, k, M);
+    auto [rowComparisons, columnComparisons, ovcDecision] = alg.sort(records, N, k, M);
     const auto stop = std::chrono::system_clock::now();
     const auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
 
@@ -80,6 +80,7 @@ void benchmark(SortAlgorithm &alg, Record * records, const int N, const int k, c
         N << ", " <<
         k << ", " <<
         rowComparisons << ", " <<
+        ovcDecision << ", " <<
         columnComparisons << ", " <<
         duration <<
         std::endl;
