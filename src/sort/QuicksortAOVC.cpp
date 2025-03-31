@@ -125,9 +125,8 @@ void QuicksortAOVC::setFixOVC(const bool fixAOVC) {
 }
 
 void QuicksortAOVC::move(Record* records, const Record * list, int &counter, const int length) {
-  for (int i = 0; i < length; i++) {
-    records[counter++] = list[i];
-  }
+  std::copy_n(list, length, records + counter);
+  counter+=length;
 }
 
 void QuicksortAOVC::updateToPositiveAOVC(Record * records, const unsigned int length, const unsigned int keyLength, Stats & stats) {
