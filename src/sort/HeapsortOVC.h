@@ -9,7 +9,7 @@ struct HeapsortOVCLessThanResult {
 };
 
 
-class HeapsortOVC: public SortAlgorithm {
+class HeapsortOVC final: public SortAlgorithm {
     Stats stats;
 
   public:

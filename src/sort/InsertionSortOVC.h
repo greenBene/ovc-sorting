@@ -4,7 +4,7 @@
 #include "Record.h"
 #include "SortAlgorithm.h"
 
-class InsertionSortOVC : public SortAlgorithm {
+class InsertionSortOVC final: public SortAlgorithm {
     Stats stats;
 
   public:

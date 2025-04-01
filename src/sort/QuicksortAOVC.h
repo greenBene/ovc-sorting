@@ -4,7 +4,7 @@
 #include "Record.h"
 #include "SortAlgorithm.h"
 
-class QuicksortAOVC : public SortAlgorithm {
+class QuicksortAOVC final : public SortAlgorithm {
     Stats stats;
     bool fixAOVC = false;
 

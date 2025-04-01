@@ -2,8 +2,6 @@
 
 #include <cstdint>
 
-
-constexpr uint32_t OVC_ZERO = 0x40000000;
 constexpr uint32_t OVC_MINUS_INFINITY = 0x00000000;
 constexpr uint32_t OVC_PLUS_INFINITY = 0xC0000000;
 

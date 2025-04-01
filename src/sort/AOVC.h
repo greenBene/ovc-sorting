@@ -7,9 +7,6 @@
     [2bit] - Flag
     [14bit] - Offset
     [16bit] - Value
-
-    Flag:
-
  */
 
 

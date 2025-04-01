@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.30)
 project(OVCSorting)
 set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_FLAGS_RELEASE "-O3")
+set(CMAKE_CXX_FLAGS_RELEASE "-O0")
 
 add_subdirectory(src/sort)
 add_subdirectory(test)

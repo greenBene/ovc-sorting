@@ -6,7 +6,7 @@
 class SortAlgorithm {
 
   public:
-    virtual ~SortAlgorithm() {};
+    virtual ~SortAlgorithm() = default;
 
     virtual Stats sort(Record* records, int length, int keyLength) = 0;
     virtual Stats sort(Record* records, int length, int keyLength, int M) = 0;

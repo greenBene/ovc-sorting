@@ -11,7 +11,7 @@ struct QuicksortOVCLessThanResult {
 };
 
 
-class QuicksortOVC : public SortAlgorithm {
+class QuicksortOVC final : public SortAlgorithm {
     Stats stats;
 
   public:

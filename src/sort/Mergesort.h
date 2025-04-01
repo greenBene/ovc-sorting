@@ -4,7 +4,7 @@
 #include "Stats.h"
 
 
-class Mergesort : public SortAlgorithm {
+class Mergesort final : public SortAlgorithm {
   Stats stats;
   int length = 0;
   int keyLength = 0;
