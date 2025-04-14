@@ -2,7 +2,7 @@
 
 PROGRAM=../release/OVCSorting
 
-RESULTS="test.csv"
+RESULTS="results.csv"
 echo "algorithm, M, input, N, k, rowCmp, ovcDecisions, colCmp, timeInUS" > $RESULTS
 
 
@@ -17,7 +17,7 @@ evaluate_random () {
             for m in "${M[@]}"; do
               COMMAND="$PROGRAM --algorithm $alg --input $file --M $m"
               echo "$COMMAND"
-  #            eval "$COMMAND" >> $RESULTS
+              eval "$COMMAND" >> $RESULTS
             done
         done
       done
@@ -35,11 +35,11 @@ evaluate_ordered () {
         file="./data/test_${n}_${k}_ordered.txt"
         COMMAND="$PROGRAM --algorithm $alg --input $file"
         echo "$COMMAND"
+        eval "$COMMAND" >> $RESULTS
         echo "$COMMAND"
+        eval "$COMMAND" >> $RESULTS
         echo "$COMMAND"
-#        eval "$COMMAND" >> $RESULTS
-#        eval "$COMMAND" >> $RESULTS
-#        eval "$COMMAND" >> $RESULTS
+        eval "$COMMAND" >> $RESULTS
       done
     done
   done
@@ -87,15 +87,20 @@ ALGORITHMS=(quicksort quicksortovc quicksortaovc quicksortaovc+uc)
 N=(1000 10000 100000 1000000)
 K=(10)
 evaluate_random
-ALGORITHMS=(quicksort quicksortovc quicksortaovc quicksortaovc+uc)
+
+ALGORITHMS=(quicksortovc quicksortaovc quicksortaovc+uc)
 N=(1000 10000 100000)
+K=(10)
+evaluate_ordered
+ALGORITHMS=(quicksort)
+N=(1000 10000)
 K=(10)
 evaluate_ordered
 
 ## EVAL (missing) K
 ALGORITHMS=(quicksort quicksortovc quicksortaovc quicksortaovc+uc)
 N=(100000)
-K=(10 20 50)
+K=(5 20 50)
 evaluate_random
 
 ALGORITHMS=(quicksort quicksortovc quicksortaovc quicksortaovc+uc)

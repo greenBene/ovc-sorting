@@ -74,14 +74,14 @@ void benchmark(SortAlgorithm &alg, Record * records, const int N, const int k, c
     }
 
     std::cout <<
-        alg.name() << ", " <<
-        M << ", " <<
-        filePath << ", " <<
-        N << ", " <<
-        k << ", " <<
-        rowComparisons << ", " <<
-        ovcDecision << ", " <<
-        columnComparisons << ", " <<
+        alg.name() << "," <<
+        M << "," <<
+        filePath << "," <<
+        N << "," <<
+        k << "," <<
+        rowComparisons << "," <<
+        ovcDecision << "," <<
+        columnComparisons << "," <<
         duration <<
         std::endl;
 }
@@ -91,7 +91,7 @@ int main(int argc, char *argv[]) {
     try {
         po::options_description desc(
             "Benchmarks the selected algorithm using the given input file.\n"
-            "Returns the benchmark results as \"[ALG], [M], [INPUT], [N], [k], [rowCmp], [colCmp], [timeInUS]\"\n"
+            "Returns the benchmark results as \"[ALG],[M],[INPUT],[N],[k],[rowCmp],[colCmp],[timeInUS]\"\n"
             "\nAllowed options:"
             );
         desc.add_options()
