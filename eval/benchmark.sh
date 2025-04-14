@@ -2,8 +2,8 @@
 
 PROGRAM=../release/OVCSorting
 
-RESULTS="results.csv"
-echo "algorithm, M, input, N, k, rowCmp, ovcDecisions, colCmp, timeInUS" > $RESULTS
+RESULTS="results_q.csv"
+echo "algorithm,M,input,N,k,rowCmp,ovcDecisions,colCmp,timeInUS" > $RESULTS
 
 
 evaluate_random () {
@@ -88,7 +88,11 @@ N=(1000 10000 100000 1000000)
 K=(10)
 evaluate_random
 
-ALGORITHMS=(quicksortovc quicksortaovc quicksortaovc+uc)
+ALGORITHMS=(quicksortaovc quicksortaovc+uc)
+N=(1000 10000 100000 1000000)
+K=(10)
+evaluate_ordered
+ALGORITHMS=(quicksortovc)
 N=(1000 10000 100000)
 K=(10)
 evaluate_ordered

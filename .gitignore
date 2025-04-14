@@ -118,4 +118,5 @@ fabric.properties
 
 release
 eval/test*.txt
+eval/data/
 .env
