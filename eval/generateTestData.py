@@ -32,6 +32,10 @@ with open(OUTPUT, "w") as file:
         for i in range(N):
             key = str(i%maxVal).zfill(k)
             file.write(key + "\n")
+    elif args.order == "onlyduplicates":
+        for i in range(N):
+            key = k * "X"
+            file.write(key + "\n")
     elif args.order == "reversed":
         for i in reversed(range(N)):
             key = str(i%maxVal).zfill(k)
